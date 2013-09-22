@@ -1,0 +1,51 @@
+<h2>Member Details</h2>
+<p>
+  <strong>Forename:</strong>
+  <%= @member.forename %>
+</p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @member.surname %>
+</p>
+
+<p>
+  <strong>Member Category:</strong>
+  <%= @member.member_category.description %>
+</p>
+
+<p>
+  <strong>Membership Status:</strong>
+  <%= @member.membership_status.status %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @member.notes %>
+</p>
+
+<h2>Source Details</h2>
+<p>
+  <strong>Sign-up Source Channel:</strong>
+  <%= @member.source_channel.channel %>
+</p>
+
+<p>
+  <strong>Sign-up Source:</strong>
+  <%= @member.signup_source %>
+</p>
+
+<h2>Contact Details</h2>
+<%= render @member.contact_details %>
+
+<%= link_to "Edit Member Details", edit_member_path(@member) %>
+
+<h2>Entitlement Periods</h2>
+<%= render @member.entitlement_periods %>
+
+<strong>Add an entitlement period:</strong>
+<%= render "entitlement_periods/form" %>
+
+<%= link_to 'Home', controller: "welcome" %>
+<%= link_to "Members", members_path %>
+
