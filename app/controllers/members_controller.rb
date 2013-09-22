@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 	def new
 		@member = Member.new
 		@contact_details = ContactDetails.new
+		@forum_details = ForumDetails.new
 		@max_member_id = Member.maximum("membership_number")
 	end
 
@@ -17,6 +18,14 @@ class MembersController < ApplicationController
 		puts "Pre-Contact Details"	
 		@contact_details = ContactDetails.new(contact_details_params)
 		@member.contact_details = @contact_details
+
+		@forum_details = ForumDetails.new(forum_details_params)
+		unless forum_details_params[:forum_id].blank?
+			@member.forum_details = @forum_details
+		end
+
+		#Just in case there are other validation errors and we have to return to the page
+		@max_member_id = Member.maximum("membership_number")
 
 		puts "Pre-Save"
 		@member.save
@@ -42,6 +51,10 @@ class MembersController < ApplicationController
 	def edit
 		@member = Member.find(params[:id])
 		@contact_details = @member.contact_details
+		@forum_details = @member.forum_details
+		if @forum_details.nil?
+			@forum_details = ForumDetails.new
+		end
 		@max_member_id = Member.maximum("membership_number")
 	end
 	
@@ -52,6 +65,13 @@ class MembersController < ApplicationController
   		@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
 
   		@member.contact_details.update(contact_details_params)
+  		
+  		#If forum_details is not empty - assume we have forum details:
+  		unless forum_details_params[:forum_id].blank?
+  			@member.build_forum_details(forum_details_params)
+  			@forum_details = @member.forum_details
+  		end
+
   		@member.update(member_params)
   		@contact_details = @member.contact_details
   		
@@ -77,5 +97,10 @@ class MembersController < ApplicationController
 	private
 		def contact_details_params
 			params.require(:contact_details).permit(:address_line_1, :address_line_2, :address_line_3, :town, :county, :postcode, :country, :telephone, :email)
+		end
+
+	private
+		def forum_details_params
+			params.require(:forum_details).permit(:forum_id, :forum_name)
 		end
 end

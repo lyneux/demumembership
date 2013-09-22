@@ -99,6 +99,21 @@
 
   <% end %>
 
+  <h2>Forum Details</h2>
+  <%= fields_for @forum_details do |fd| %>
+
+    <p>
+      <%= fd.label :forum_id, "Forum ID" %><br>
+      <%= fd.text_field :forum_id %>
+    </p>
+
+    <p>
+      <%= fd.label :forum_name %><br>
+      <%= fd.text_field :forum_name %>
+    </p>
+
+  <% end %>
+
   <p>
     <%= f.submit %>
   </p>

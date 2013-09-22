@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922120347) do
+ActiveRecord::Schema.define(version: 20130922130300) do
 
   create_table "contact_details", force: true do |t|
     t.string   "address_line_1"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20130922120347) do
   end
 
   add_index "entitlement_periods", ["member_id"], name: "index_entitlement_periods_on_member_id", using: :btree
+
+  create_table "forum_details", force: true do |t|
+    t.integer  "forum_id"
+    t.string   "forum_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "member_id"
+  end
+
+  add_index "forum_details", ["member_id"], name: "index_forum_details_on_member_id", using: :btree
 
   create_table "member_categories", force: true do |t|
     t.string   "description"

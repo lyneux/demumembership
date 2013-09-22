@@ -4,6 +4,7 @@ class Member < ActiveRecord::Base
   belongs_to :member_category
   belongs_to :source_channel
   has_one :contact_details, dependent: :destroy, autosave: true
+  has_one :forum_details, dependent: :destroy, autosave: true
   
   validates :forename, presence: true, length: {minimum: 1 }
   validates :surname, presence: true, length: {minimum: 2}
