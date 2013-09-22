@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 	def new
 		@member = Member.new
 		@contact_details = ContactDetails.new
+		@max_member_id = Member.maximum("membership_number")
 	end
 
 	def create
@@ -41,6 +42,7 @@ class MembersController < ApplicationController
 	def edit
 		@member = Member.find(params[:id])
 		@contact_details = @member.contact_details
+		@max_member_id = Member.maximum("membership_number")
 	end
 	
 	def update
@@ -69,7 +71,7 @@ class MembersController < ApplicationController
 
 	private
 		def member_params
-			params.require(:member).permit(:forename, :surname, :notes, :signup_source, :member_category_id, :source_channel_id)
+			params.require(:member).permit(:membership_number, :forename, :surname, :notes, :signup_source, :member_category_id, :source_channel_id)
 		end
 
 	private

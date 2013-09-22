@@ -11,6 +11,12 @@
   <% end %>
 
   <h2>Member Details</h2>
+
+  <p>
+    <%= f.label :membership_number %> (Current maximum = <%= @max_member_id %>)<br>
+    <%= f.text_field :membership_number %>
+  </p>
+
   <p>
     <%= f.label :forename %><br>
     <%= f.text_field :forename %>

@@ -8,4 +8,5 @@ class Member < ActiveRecord::Base
   validates :forename, presence: true, length: {minimum: 1 }
   validates :surname, presence: true, length: {minimum: 2}
   validates :member_category, presence: true
+  validates :membership_number, presence: true, numericality: true, uniqueness: true
 end
