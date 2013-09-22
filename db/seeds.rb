@@ -6,14 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#MemberCategory.create(description: "Adult UK", price_in_pence_per_year: '2100')
-#MemberCategory.create(description: "OAP/Junior UK", price_in_pence_per_year: '1800')
-#MemberCategory.create(description: "Family UK", price_in_pence_per_year: '2300')
-#MemberCategory.create(description: "Rest of World", price_in_pence_per_year: '2800')
+MemberCategory.create(description: "Adult UK", price_in_pence_per_year: '2100')
+MemberCategory.create(description: "OAP/Junior UK", price_in_pence_per_year: '1800')
+MemberCategory.create(description: "Family UK", price_in_pence_per_year: '2300')
+MemberCategory.create(description: "Rest of World", price_in_pence_per_year: '2800')
 
-#MembershipStatus.create(status: "live")
-#MembershipStatus.create(status: "expired")
-#MembershipStatus.create(status: "dead")
+MembershipStatus.create(status: "live")
+MembershipStatus.create(status: "expired")
+MembershipStatus.create(status: "dead")
 
 SourceChannel.create(channel: "exhibition")
 SourceChannel.create(channel: "online")
