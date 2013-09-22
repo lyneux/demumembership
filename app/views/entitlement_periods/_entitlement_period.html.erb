@@ -2,11 +2,13 @@
 <% if entitlement_period.persisted? %>
 
 <p>
-  <strong> <%= entitlement_period.id %> End date:</strong>
-  <%= entitlement_period.endDate %>
+	<strong>Payment:</strong>
+  	<%= entitlement_period.payment.payment_date %>
+  	<%= number_to_currency(entitlement_period.payment.amount_in_pence.to_f/100, :unit => "&pound;") %>
 
+  	<strong>Entitlement End:</strong>
+ 	<%= entitlement_period.endDate %>
 
-  <%= link_to 'Destroy Entitlement Period', [entitlement_period.member, entitlement_period], method: :delete, data: {confirm: 'Are you sure?'} %>
 </p>
 
 <% end %>
