@@ -1,15 +1,33 @@
-<%= form_for([@member, @member.entitlement_periods.build]) do |f| %>
+<%= form_for([@member, @entitlement_period]) do |f| %>
 
-  <% if @entitlement_period && @entitlement_period.errors.any? %>
+  <% if @entitlement_period.errors.any? %>
     <% @entitlement_period.errors.full_messages.each do |msg| %>
      <li><%= msg %></li>
     <% end %>
   <% end %>
 
   <p>
+
     <%= f.label :endDate %><br />
-    <%= f.text_field :endDate %>
+    <%= f.text_field :endDate %><br />
+    This really needs to be calculated but can be input for now.
   </p>
+
+  <h2>Payment </h2>
+  <%= fields_for @payment do |p| %>
+
+    <p>
+      <%= p.label :payment_date %><br />
+      <%= p.text_field :payment_date %>
+    </p>
+
+    <p>
+      <%= p.label :amount_in_pence %><br />
+      <%= p.text_field :amount_in_pence %>
+    </p>
+
+  <% end %>
+
   <p>
     <%= f.submit %>
   </p>

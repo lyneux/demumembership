@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  payment_date: 2013-09-22
+  amount_in_pence: 1
+
+two:
+  payment_date: 2013-09-22
+  amount_in_pence: 1

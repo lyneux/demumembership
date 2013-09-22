@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922130300) do
+ActiveRecord::Schema.define(version: 20130922164134) do
 
   create_table "contact_details", force: true do |t|
     t.string   "address_line_1"
@@ -35,9 +35,11 @@ ActiveRecord::Schema.define(version: 20130922130300) do
     t.date     "endDate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payment_id"
   end
 
   add_index "entitlement_periods", ["member_id"], name: "index_entitlement_periods_on_member_id", using: :btree
+  add_index "entitlement_periods", ["payment_id"], name: "index_entitlement_periods_on_payment_id", using: :btree
 
   create_table "forum_details", force: true do |t|
     t.integer  "forum_id"
@@ -75,6 +77,15 @@ ActiveRecord::Schema.define(version: 20130922130300) do
 
   create_table "membership_statuses", force: true do |t|
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.date     "payment_date"
+    t.integer  "amount_in_pence"
+    t.integer  "payable_id"
+    t.string   "payable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

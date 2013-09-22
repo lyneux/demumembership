@@ -57,9 +57,9 @@
 
 <h2>Entitlement Periods</h2>
 <%= render @member.entitlement_periods %>
-
-<strong>Add an entitlement period:</strong>
-<%= render "entitlement_periods/form" %>
+<p>
+<%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id) %>
+</p>
 
 <%= link_to 'Home', controller: "welcome" %>
 <%= link_to "Members", members_path %>
