@@ -1,4 +1,0 @@
-demumembership
-==============
-
-DEMU Membership Database
