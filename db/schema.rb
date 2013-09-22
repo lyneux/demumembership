@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130922164134) do
+ActiveRecord::Schema.define(version: 20130922202022) do
 
   create_table "contact_details", force: true do |t|
     t.string   "address_line_1"
@@ -81,6 +81,12 @@ ActiveRecord::Schema.define(version: 20130922164134) do
     t.datetime "updated_at"
   end
 
+  create_table "payment_methods", force: true do |t|
+    t.string   "payment_method"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payments", force: true do |t|
     t.date     "payment_date"
     t.integer  "amount_in_pence"
@@ -88,7 +94,10 @@ ActiveRecord::Schema.define(version: 20130922164134) do
     t.string   "payable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payment_method_id"
   end
+
+  add_index "payments", ["payment_method_id"], name: "index_payments_on_payment_method_id", using: :btree
 
   create_table "source_channels", force: true do |t|
     t.string   "channel"

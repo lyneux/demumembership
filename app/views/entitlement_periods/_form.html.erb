@@ -10,7 +10,7 @@
 
     <%= f.label :endDate %><br />
     <%= f.text_field :endDate %><br />
-    This really needs to be calculated but can be input for now.
+    This is calculated but can be over-ridden.
   </p>
 
   <h2>Payment </h2>
@@ -24,6 +24,11 @@
     <p>
       <%= p.label :amount_in_pence %><br />
       <%= p.text_field :amount_in_pence %>
+    </p>
+
+    <p>
+      <%= p.label :payment_method %><br>
+      <%= collection_select(:payment, :payment_method_id, PaymentMethod.all, :id, :payment_method) %>
     </p>
 
   <% end %>
