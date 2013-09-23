@@ -15,4 +15,11 @@ class Member < ActiveRecord::Base
     entitlement_periods.last
   end
 
+  def paid_up_to_date
+    if find_latest_entitlement.nil?
+      'none'
+    else
+      find_latest_entitlement.endDate.to_s()
+    end
+  end
 end
