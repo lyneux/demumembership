@@ -12,7 +12,9 @@ class MembersController < ApplicationController
 
 		@member = Member.new(member_params)
 		@member.member_category = MemberCategory.find(member_params[:member_category_id])
-		@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
+		unless member_params[:source_channel_id].to_s == ''
+			@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
+		end
 		@member.membership_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
 		
 		puts "Pre-Contact Details"	
@@ -62,7 +64,9 @@ class MembersController < ApplicationController
 
   		@member = Member.find(params[:id])
   		@member.member_category = MemberCategory.find(member_params[:member_category_id])
-  		@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
+  		unless member_params[:source_channel_id].to_s == ''
+  			@member.source_channel = SourceChannel.find(member_params[:source_channel_id]) 
+  		end
 
   		@member.contact_details.update(contact_details_params)
   		
