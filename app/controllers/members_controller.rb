@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
 
+	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
+
 	def new
 		@member = Member.new
 		@contact_details = ContactDetails.new
