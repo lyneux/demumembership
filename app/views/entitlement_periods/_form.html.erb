@@ -9,7 +9,7 @@
   <p>
 
     <%= f.label :endDate %><br />
-    <%= f.text_field :endDate %><br />
+    <%= date_select :entitlement_period, :endDate %><br />
     This is calculated but can be over-ridden.
   </p>
 
@@ -18,7 +18,7 @@
 
     <p>
       <%= p.label :payment_date %><br />
-      <%= p.text_field :payment_date %>
+      <%= date_select :payment, :payment_date %>
     </p>
 
     <p>
