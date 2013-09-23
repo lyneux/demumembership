@@ -4,11 +4,10 @@ class EntitlementPeriod < ActiveRecord::Base
   has_one :payment, dependent: :destroy, autosave: true, as: :payable
 
   validates :endDate, presence: true
-  validates :payment, presence: true
   validate :check_if_last_month_of_current_entitlement
 
   def check_if_last_month_of_current_entitlement
-  	latest_entitlement = member.find_latest_entitlement
+  	latest_entitlement = member.find_latest_entitlement unless member.nil?
   	unless latest_entitlement.nil?
   		unless (Date.today.next_month > latest_entitlement.endDate)
   			errors.add(:entitlement_period, "cannot be created because you are not in the last month of the current entitlement")
