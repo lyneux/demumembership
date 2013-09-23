@@ -8,4 +8,8 @@ class SourceChannel < ActiveRecord::Base
 	ALL_CHANNELS = [EXHIBITION, ONLINE, SHOWCASE]
 
 	validates_inclusion_of :channel, :in => ALL_CHANNELS
+
+	def to_s
+		channel
+	end
 end
