@@ -45,7 +45,7 @@
   <h2>Source Details</h2>
   <p>
     <%= f.label :source_channel %><br>
-    <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel) %>
+    <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel, :include_blank => true ) %>
   </p>
 
   <p>

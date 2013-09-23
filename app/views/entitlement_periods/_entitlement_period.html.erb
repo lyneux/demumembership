@@ -3,9 +3,14 @@
 
 <p>
 	<strong>Payment:</strong>
-  	<%= entitlement_period.payment.payment_date %>
-  	<%= entitlement_period.payment.payment_method.payment_method %>
-  	<%= number_to_currency(entitlement_period.payment.amount_in_pence.to_f/100, :unit => "&pound;") %>
+
+	<% unless entitlement_period.payment.nil? %>
+  		<%= entitlement_period.payment.payment_date %>
+  		<%= entitlement_period.payment.payment_method.payment_method %>
+  		<%= number_to_currency(entitlement_period.payment.amount_in_pence.to_f/100, :unit => "&pound;") %>
+  	<% else %>
+  		No Payment recorded
+  	<% end if %>
 
   	<strong>Entitlement End:</strong>
  	<%= entitlement_period.endDate %>
