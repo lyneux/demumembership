@@ -28,6 +28,11 @@
   </p>
 
   <p>
+    <%= f.label :date_of_birth %><br>
+    <%= date_select :member, :date_of_birth, :start_year => 1920, :include_blank => true %>
+  </p>
+
+  <p>
     <%= f.label :member_category %><br>
     <%= collection_select(:member, :member_category_id, MemberCategory.all, :id, :description) %>
   </p>

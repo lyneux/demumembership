@@ -91,7 +91,7 @@ class MembersController < ApplicationController
 
 	private
 		def member_params
-			params.require(:member).permit(:membership_number, :forename, :surname, :notes, :signup_source, :member_category_id, :source_channel_id)
+			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id)
 		end
 
 	private
