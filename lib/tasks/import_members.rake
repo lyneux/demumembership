@@ -82,8 +82,16 @@ task :import_members => :environment do
         else
           paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('cash')
         end
-        payment = entitlement.build_payment(paymentdata)
+        if (!paymentdata[:amount_in_pence].nil? & !paymentdata[:payment_date].nil?)
+          payment = entitlement.build_payment(paymentdata)
+        end
       end
+
+      #unless row['Forum ID'].to_s == ''
+        forumdata = {forum_id: (row['Forum ID']), forum_name: (row['Forum Name'])}
+        #forumdata[:forum_name] = row['Forum Name'] unless row['Forum Name'].to_s.delete(' ') == ''
+        foumdetails = member.build_forum_details(forumdata)
+      #end
 
       member.save
 
