@@ -43,6 +43,11 @@
   </p>
 
   <p>
+    <%= f.label :area_group %><br>
+    <%= collection_select(:member, :area_group_id, AreaGroup.all, :id, :description, :include_blank => true) %>
+  </p>
+
+  <p>
     <%= f.label :notes %><br>
     <%= f.text_area :notes %>
   </p>

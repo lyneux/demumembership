@@ -14,6 +14,7 @@ class MembersController < ApplicationController
 
 		@member = Member.new(member_params)
 		@member.member_category = MemberCategory.find(member_params[:member_category_id])
+		@member.area_group = AreaGroup.find(member_params[:area_group_id])
 		unless member_params[:source_channel_id].to_s == ''
 			@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
 		end
@@ -66,6 +67,7 @@ class MembersController < ApplicationController
 
   		@member = Member.find(params[:id])
   		@member.member_category = MemberCategory.find(member_params[:member_category_id])
+  		@member.area_group = AreaGroup.find(member_params[:area_group_id])
   		unless member_params[:source_channel_id].to_s == ''
   			@member.source_channel = SourceChannel.find(member_params[:source_channel_id]) 
   		end
@@ -97,7 +99,7 @@ class MembersController < ApplicationController
 
 	private
 		def member_params
-			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id)
+			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
 		end
 
 	private

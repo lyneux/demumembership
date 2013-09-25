@@ -37,6 +37,10 @@ task :import_members => :environment do
         memberdetails[:date_of_birth] = row['Date of birth']
       end
 
+      unless row['Area Group'].to_s == ''
+        memberdetails[:area_group] = AreaGroup.find_by_name(row['Area Group'].to_s)
+      end
+
       contactdetails = {address_line_1: row['Address1'], address_line_2: row['Address2'], address_line_3: row['Address3']}
       contactdetails[:town] = row['Postal Town']
       contactdetails[:county] = row['County']

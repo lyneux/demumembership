@@ -6,6 +6,7 @@
     <th>Forename</th>
     <th>Surname</th>
     <th>Paid Up To</th>
+    <th>Area Group</th>
   </tr>
 
   <% @members.each do |member| %>
@@ -14,6 +15,7 @@
       <td><%= member.forename %></td>
       <td><%= member.surname %></td>
       <td><%= member.paid_up_to_date %></td>
+      <td><%= member.area_group %></td>
       <td><%= link_to 'Show', member_path(member) %></td>
       <td><%= link_to 'Edit', edit_member_path(member) %></td>
       <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' } %></td>

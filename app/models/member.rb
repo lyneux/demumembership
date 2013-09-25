@@ -3,6 +3,7 @@ class Member < ActiveRecord::Base
   belongs_to :membership_status
   belongs_to :member_category
   belongs_to :source_channel
+  belongs_to :area_group
   has_one :contact_details, dependent: :destroy, autosave: true
   has_one :forum_details, dependent: :destroy, autosave: true
   

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130924225227) do
+ActiveRecord::Schema.define(version: 20130925112650) do
+
+  create_table "area_groups", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contact_details", force: true do |t|
     t.string   "address_line_1"
@@ -71,8 +79,10 @@ ActiveRecord::Schema.define(version: 20130924225227) do
     t.integer  "membership_number"
     t.date     "date_of_birth"
     t.date     "date_added"
+    t.integer  "area_group_id"
   end
 
+  add_index "members", ["area_group_id"], name: "index_members_on_area_group_id", using: :btree
   add_index "members", ["member_category_id"], name: "index_members_on_member_category_id", using: :btree
   add_index "members", ["membership_status_id"], name: "index_members_on_membership_status_id", using: :btree
   add_index "members", ["source_channel_id"], name: "index_members_on_source_channel_id", using: :btree
