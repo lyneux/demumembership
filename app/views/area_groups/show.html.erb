@@ -13,6 +13,26 @@
   <strong>Active:</strong>
   <%= @area_group.active %>
 </p>
+
+<h2>Members:</h2>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Forename</th>
+    <th>Surname</th>
+  </tr>
+
+  <% @area_group.member.each do |member| %>
+    <tr>
+   	  <td><%= member.membership_number %></td>
+      <td><%= member.forename %></td>
+      <td><%= member.surname %></td>
+    </tr>
+  <% end %>
+</table>
+
+
 <%= link_to "Edit Area Group", edit_area_group_path(@area_group) %>
 <%= link_to 'Home', controller: "welcome" %>
 <%= link_to "Area Groups", area_groups_path %>
