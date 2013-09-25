@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 
 	def new
-		@member = Member.new
+		@member = Member.new(:date_added => Date.today)
 		@contact_details = ContactDetails.new
 		@forum_details = ForumDetails.new
 		@max_member_id = Member.maximum("membership_number")

@@ -11,6 +11,7 @@ task :import_members => :environment do
   		memberdetails = {forename: row['Forename'], surname: row['Surname']}
   		memberdetails[:notes] = row['Notes - Public']
       memberdetails[:membership_number] = row['Membership number']
+      memberdetails[:date_added] = row['Joined date']
 
       case row['Mship  Type']
       when 'Senior'
