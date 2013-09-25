@@ -31,14 +31,15 @@ AreaGroup.create(name: "ANGLIA", description: "East Anglia", active: "true")
 AreaGroup.create(name: "DCAG", description: "Devon and Cornwall", active: "true")
 AreaGroup.create(name: "EMAG", description: "East Midlands", active: "true")
 AreaGroup.create(name: "GMAG", description: "Greater Manchester", active: "true")
-AreaGroup.create(name: "HBAG", description: "Hertfordshire and Bedfordshire", active: "true") #ACTUALLY FALSE BUT WONT IMPORT!
+AreaGroup.create(name: "Overseas", description: "Overseas (Not British Isles)", active: "false")
+AreaGroup.create(name: "Ireland", description: "Ireland", active: "false")
 AreaGroup.create(name: "LAG", description: "London", active: "true")
 AreaGroup.create(name: "Lincolnshire", description: "Lincolnshire", active: "true")
 AreaGroup.create(name: "NEAG", description: "North East", active: "true")
-AreaGroup.create(name: "NWAG", description: "North West", active: "true") #ACTUALLY FALSE BUT WONT IMPORT!
 AreaGroup.create(name: "SCAG", description: "Solent & Coastway", active: "true")
 AreaGroup.create(name: "Scotland", description: "Scotland (incl. SLAG and NOS?)", active: "true")
 AreaGroup.create(name: "SWAG", description: "South West", active: "true")
+AreaGroup.create(name: "Wales", description: "Wales", active: "false")
 AreaGroup.create(name: "WMAG", description: "West Midlands", active: "true")
 AreaGroup.create(name: "WRAG", description: "White Rose (Yorkshire)", active: "true")
 
