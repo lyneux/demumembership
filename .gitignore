@@ -17,6 +17,7 @@
 
 # Ignore other unneeded files.
 database.yml
+TEST_IMPORT_TO_DATABASE_20130922.csv
 doc/
 *.swp
 *~
