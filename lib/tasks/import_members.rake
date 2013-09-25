@@ -9,7 +9,8 @@ task :import_members => :environment do
   		puts 'IMPORTING: ' + row['Membership number'] + ' ' + row['Forename'] + ' ' + row['Surname']
 
   		memberdetails = {forename: row['Forename'], surname: row['Surname']}
-  		memberdetails[:notes] = row['Notes - Public']
+  		memberdetails[:notes] = row['Notes - Public'].to_s + "\n" + row['Notes - Private'].to_s + "\n" + row['Renewed'].to_s + "\n" + row['Forum status'].to_s
+      memberdetails[:signup_source] = row['Joined']
       memberdetails[:membership_number] = row['Membership number']
       memberdetails[:date_added] = row['Joined date']
 
