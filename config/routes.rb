@@ -18,6 +18,8 @@ Demumembership::Application.routes.draw do
     resources :entitlement_periods
   end
 
+  resources :area_groups
+
   # Example resource route with options:
   #   resources :products do
   #     member do

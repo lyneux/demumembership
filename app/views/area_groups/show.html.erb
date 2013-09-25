@@ -1,0 +1,19 @@
+<h2>Area Group Details:</h2>
+<p>
+  <strong>Name:</strong>
+  <%= @area_group.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @area_group.description %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @area_group.active %>
+</p>
+<%= link_to "Edit Area Group", edit_area_group_path(@area_group) %>
+<%= link_to 'Home', controller: "welcome" %>
+<%= link_to "Area Groups", area_groups_path %>
+

@@ -1,0 +1,32 @@
+<%= form_for @area_group do |f| %>
+  <% if @area_group.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@area_group.errors.count, "error") %> prohibited this area group from being saved:</h2>
+    <ul>
+    <% @area_group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+

@@ -1,0 +1,25 @@
+<h1>Listing Area Groups</h1>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Active</th>
+  </tr>
+
+  <% @area_groups.each do |area_group| %>
+    <tr>
+      <td><%= area_group.id %></td>
+      <td><%= area_group.name %></td>
+      <td><%= area_group.description %></td>
+      <td><%= area_group.active %></td>
+      <td><%= link_to 'Show', area_group_path(area_group) %></td>
+      <td><%= link_to 'Edit', edit_area_group_path(area_group) %></td>
+      <td><%= link_to 'Destroy', area_group_path(area_group), method: :delete, data: {confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Home', controller: "welcome" %>
+<%= link_to "Add New Area Group", new_area_group_path %>
