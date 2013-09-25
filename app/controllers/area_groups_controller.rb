@@ -4,10 +4,12 @@ class AreaGroupsController < ApplicationController
 
 	def new
 		@area_group = AreaGroup.new()
+		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }
 	end
 
 	def create
 		@area_group = AreaGroup.new(area_group_params)
+		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }
 		@area_group.save
 
 		if @area_group.errors.none?
@@ -27,12 +29,14 @@ class AreaGroupsController < ApplicationController
 
 	def edit
 		@area_group = AreaGroup.find(params[:id])
+		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }
 	end
 
 	def update
 		@area_group = AreaGroup.find(params[:id])
 		@area_group.update(area_group_params)
-		@area_group.coordinator = Member.find(coordinator_params[:coordinator])
+		@area_group.coordinator = Member.find(coordinator_params[:coordinator]) unless coordinator_params[:coordinator].nil?
+		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }
 
 		if @area_group.errors.none?
 			redirect_to @area_group

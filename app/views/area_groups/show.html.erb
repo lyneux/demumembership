@@ -28,7 +28,7 @@
     <th>Surname</th>
   </tr>
 
-  <% @area_group.member.each do |member| %>
+  <% @area_group.members.each do |member| %>
     <tr>
    	  <td><%= member.membership_number %></td>
       <td><%= member.forename %></td>

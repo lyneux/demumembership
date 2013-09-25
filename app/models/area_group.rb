@@ -1,5 +1,5 @@
 class AreaGroup < ActiveRecord::Base
-	has_many :member
+	has_many :members
 	has_one :coordinator, class_name: "Member", foreign_key: "area_group_coordinator_id"
 
 	validates :name, presence: true, length: {minimum: 3 }
