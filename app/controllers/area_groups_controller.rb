@@ -32,6 +32,7 @@ class AreaGroupsController < ApplicationController
 	def update
 		@area_group = AreaGroup.find(params[:id])
 		@area_group.update(area_group_params)
+		@area_group.coordinator = Member.find(coordinator_params[:coordinator])
 
 		if @area_group.errors.none?
 			redirect_to @area_group
@@ -49,5 +50,9 @@ class AreaGroupsController < ApplicationController
 	private
 		def area_group_params
 			params.require(:area_group).permit(:name, :description, :active)
+		end
+
+		def coordinator_params
+			params.require(:area_group).permit(:coordinator)
 		end
 end

@@ -26,6 +26,11 @@
   </p>
 
   <p>
+    <%= f.label :coordinator %><br>
+    <%= collection_select(:area_group, :coordinator, @area_group.member, :id, :to_s) %>
+  </p>
+
+  <p>
     <%= f.submit %>
   </p>
 <% end %>

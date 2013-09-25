@@ -24,4 +24,8 @@ class Member < ActiveRecord::Base
       find_latest_entitlement.endDate.to_s()
     end
   end
+
+  def to_s
+    forename + " " + surname
+  end
 end
