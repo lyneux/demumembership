@@ -1,0 +1,29 @@
+<h1>Expired Members</h1>
+
+<p>Expired <%= members.count %> members.</br>
+The following members have been set to expired:</p>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Forename</th>
+    <th>Surname</th>
+    <th>Paid Up To</th>
+    <th>Status</th>
+  </tr>
+
+  <% members.each do |member| %>
+    <tr>
+      <td><%= member.membership_number %></td>
+      <td><%= member.forename %></td>
+      <td><%= member.surname %></td>
+      <td><%= member.paid_up_to_date %></td>
+      <td><%= member.membership_status %></td>
+      <td><%= link_to 'Show', member_path(member) %></td>
+      <td><%= link_to 'Edit', edit_member_path(member) %></td>
+      <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Home', controller: "welcome" %>

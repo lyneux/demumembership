@@ -8,4 +8,8 @@ class MembershipStatus < ActiveRecord::Base
 	ALL_STATES = [LIVE, EXPIRED, QUIT]
 
 	validates_inclusion_of :status, :in => ALL_STATES
+
+	def to_s
+		status
+	end
 end

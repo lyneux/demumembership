@@ -28,4 +28,9 @@ class Member < ActiveRecord::Base
   def to_s
     forename + " " + surname
   end
+
+  def expire
+    membership_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
+  end
+  
 end

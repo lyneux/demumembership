@@ -97,6 +97,37 @@ class MembersController < ApplicationController
 		redirect_to members_path
 	end
 
+	# NON-STANDARD METHODS
+	def upcoming_renewals
+		@number_of_days_until_expiry = params[:number_of_days_until_expiry]
+  		targetDate = Date.today + params[:number_of_days_until_expiry].to_i.day
+  		entitlements_expiring = EntitlementPeriod.where("endDate < ?", targetDate)#.where("endDate > ?", Date.today)
+  		
+  		@members = []
+  		for entitlement in entitlements_expiring
+  			@members.push(entitlement.member) if entitlement.member.membership_status == MembershipStatus.find_by_status(MembershipStatus::LIVE)
+  		end
+
+	end
+
+	def expire
+		entitlements_expiring = EntitlementPeriod.where("endDate < ?", Date.today)
+		members = []
+		live_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
+		expired_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
+
+		for entitlement in entitlements_expiring
+			@member = Member.find(entitlement.member.id)
+			if @member.membership_status == live_status
+  				members.push(@member)
+	  			@member.membership_status_id = expired_status.id
+	  			@member.save
+  			end
+  			
+  		end
+  		render 'expire', :locals => { :members => members}
+  	end
+
 	private
 		def member_params
 			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
@@ -111,4 +142,6 @@ class MembersController < ApplicationController
 		def forum_details_params
 			params.require(:forum_details).permit(:forum_id, :forum_name)
 		end
+
+	
 end
