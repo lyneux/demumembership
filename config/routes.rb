@@ -1,4 +1,5 @@
 Demumembership::Application.routes.draw do
+  
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,6 +18,12 @@ Demumembership::Application.routes.draw do
   
   get '/members/by_days_to_expiry/:number_of_days_until_expiry', to: 'members#upcoming_renewals', as: 'members_by_days_to_expiry'
   get '/members/expire', to: 'members#expire', as: 'members_expire'
+
+  get "gocardless/step1"
+  post "gocardless/step1_submit"
+  get 'gocardless/step2/:member_id', to: 'gocardless#step2', as: 'gocardless_step2'
+  post "gocardless/step2_submit"
+  get "gocardless/confirm"
 
   resources :members do
     resources :entitlement_periods
