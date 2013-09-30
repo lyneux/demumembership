@@ -27,7 +27,7 @@
 
   <p>
     <%= f.label :coordinator %>
-    <%= collection_select(:area_group, :coordinator, @people, :id, :to_s) %>
+    <%= collection_select(:area_group, :coordinator, @people, :id, :to_s, :include_blank => true) %>
   </p>
 
   <p>

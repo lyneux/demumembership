@@ -7,6 +7,7 @@
     <th>Number</th>
     <th>Name</th>
     <th>Description</th>
+    <th>Co-ordinator</th>
     <th>Active</th>
   </tr>
 
@@ -15,6 +16,7 @@
       <td><%= area_group.id %></td>
       <td><%= area_group.name %></td>
       <td><%= area_group.description %></td>
+      <td><%= area_group.coordinator %></td>
       <td><%= area_group.active %></td>
       <td><%= link_to 'Show', area_group_path(area_group), class: "btn btn-small btn-primary" %></td>
       <td><%= link_to 'Edit', edit_area_group_path(area_group), class: "btn btn-small" %></td>
