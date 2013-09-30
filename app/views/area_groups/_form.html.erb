@@ -1,7 +1,7 @@
 <%= form_for @area_group do |f| %>
   <% if @area_group.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@area_group.errors.count, "error") %> prohibited this area group from being saved:</h2>
+  <div id="errorExplanation"  class="alert alert-error">
+    <h3><%= pluralize(@area_group.errors.count, "error") %> prohibited this area group from being saved:</h3>
     <ul>
     <% @area_group.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -31,7 +31,7 @@
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-small btn-primary" %>
   </p>
 <% end %>
 

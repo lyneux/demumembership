@@ -1,4 +1,6 @@
-<h1>Listing Area Groups</h1>
+<h1>Area Groups</h1>
+
+<p><%= link_to "Add New Area Group", new_area_group_path, class: "btn btn-large btn-primary"  %></p>
 
 <table>
   <tr>
@@ -14,12 +16,11 @@
       <td><%= area_group.name %></td>
       <td><%= area_group.description %></td>
       <td><%= area_group.active %></td>
-      <td><%= link_to 'Show', area_group_path(area_group) %></td>
-      <td><%= link_to 'Edit', edit_area_group_path(area_group) %></td>
-      <td><%= link_to 'Destroy', area_group_path(area_group), method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Show', area_group_path(area_group), class: "btn btn-small btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_area_group_path(area_group), class: "btn btn-small" %></td>
+      <td><%= link_to 'Destroy', area_group_path(area_group), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-small"  %></td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to 'Home', controller: "welcome" %>
-<%= link_to "Add New Area Group", new_area_group_path %>
+

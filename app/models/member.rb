@@ -21,7 +21,7 @@ class Member < ActiveRecord::Base
     if find_latest_entitlement.nil?
       'none'
     else
-      find_latest_entitlement.endDate.to_s()
+      find_latest_entitlement.end_date.to_s()
     end
   end
 

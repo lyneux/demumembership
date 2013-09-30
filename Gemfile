@@ -56,5 +56,5 @@ end
 #######################
 # Use country_select
 gem 'country_select'
-
 gem 'gocardless'
+gem 'bootstrap-sass', '2.3.2.2'

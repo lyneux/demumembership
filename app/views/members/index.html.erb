@@ -1,4 +1,6 @@
-<h1>Listing Members</h1>
+<h1>Members</h1>
+
+<p><%= link_to "Add New Member", new_member_path, class: "btn btn-large btn-primary"  %></p>
 
 <table>
   <tr>
@@ -16,12 +18,9 @@
       <td><%= member.surname %></td>
       <td><%= member.paid_up_to_date %></td>
       <td><%= member.area_group %></td>
-      <td><%= link_to 'Show', member_path(member) %></td>
-      <td><%= link_to 'Edit', edit_member_path(member) %></td>
-      <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Show', member_path(member), class: "btn btn-small btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_member_path(member),class: "btn btn-small" %></td>
+      <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-small" %></td>
     </tr>
   <% end %>
 </table>
-
-<%= link_to 'Home', controller: "welcome" %>
-<%= link_to "Add New Member", new_member_path %>

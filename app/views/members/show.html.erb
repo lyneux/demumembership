@@ -68,17 +68,14 @@
 <h2>Contact Details</h2>
 <%= render @member.contact_details %>
 
-<%= link_to "Edit Member Details", edit_member_path(@member) %>
+<%= link_to "Edit Member Details", edit_member_path(@member), class: "btn btn-small"  %>
 
 <h2>Entitlement Periods</h2>
 <%= render @member.entitlement_periods %>
 <p>
-<%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id) %>
+<%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
 </p>
 
 <h2>Subscriptions</h2>
 <p>Nothing in here yet but will link to gocardless</p>
-
-<%= link_to 'Home', controller: "welcome" %>
-<%= link_to "Members", members_path %>
 

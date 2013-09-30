@@ -1,7 +1,7 @@
 <%= form_for @member do |f| %>
   <% if @member.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+  <div id="errorExplanation" class="alert alert-error">
+    <h3><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h3>
     <ul>
     <% @member.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -130,7 +130,7 @@
   <% end %>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit class:  "btn btn-small btn-primary" %>
   </p>
 <% end %>
 

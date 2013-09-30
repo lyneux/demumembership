@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130925195609) do
+ActiveRecord::Schema.define(version: 20130930205001) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20130925195609) do
 
   create_table "entitlement_periods", force: true do |t|
     t.integer  "member_id"
-    t.date     "endDate"
+    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "payment_id"

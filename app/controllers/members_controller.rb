@@ -14,7 +14,9 @@ class MembersController < ApplicationController
 
 		@member = Member.new(member_params)
 		@member.member_category = MemberCategory.find(member_params[:member_category_id])
-		@member.area_group = AreaGroup.find(member_params[:area_group_id])
+		unless member_params[:area_group_id].to_s == ''
+			@member.area_group = AreaGroup.find(member_params[:area_group_id])
+		end
 		unless member_params[:source_channel_id].to_s == ''
 			@member.source_channel = SourceChannel.find(member_params[:source_channel_id])
 		end
@@ -101,7 +103,7 @@ class MembersController < ApplicationController
 	def upcoming_renewals
 		@number_of_days_until_expiry = params[:number_of_days_until_expiry]
   		targetDate = Date.today + params[:number_of_days_until_expiry].to_i.day
-  		entitlements_expiring = EntitlementPeriod.where("endDate < ?", targetDate)#.where("endDate > ?", Date.today)
+  		entitlements_expiring = EntitlementPeriod.where("end_date < ?", targetDate)#.where("end_date > ?", Date.today)
   		
   		@members = []
   		for entitlement in entitlements_expiring
@@ -111,7 +113,7 @@ class MembersController < ApplicationController
 	end
 
 	def expire
-		entitlements_expiring = EntitlementPeriod.where("endDate < ?", Date.today)
+		entitlements_expiring = EntitlementPeriod.where("end_date < ?", Date.today)
 		members = []
 		live_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
 		expired_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)

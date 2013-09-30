@@ -10,7 +10,7 @@ class EntitlementPeriodsController < ApplicationController
 		# Help out by settings some defaults:
 		@payment.payment_date = Date.today
 		@payment.amount_in_pence = @member.member_category.price_in_pence_per_year
-		@entitlement_period.endDate = @entitlement_period.calculate_next_end_date(@member)
+		@entitlement_period.end_date = @entitlement_period.calculate_next_end_date(@member)
 	end
 
 	def create
@@ -48,7 +48,7 @@ class EntitlementPeriodsController < ApplicationController
 
 	private
 		def entitlement_period_params
-			params.require(:entitlement_period).permit(:endDate)
+			params.require(:entitlement_period).permit(:end_date)
 		end
 	
 end
