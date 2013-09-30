@@ -11,8 +11,8 @@
 
   <p>
 
-    <%= f.label :end_date %><br />
-    <%= date_select :entitlement_period, :end_date %><br />
+    <%= f.label :end_date %>
+    <%= date_select :entitlement_period, :end_date %></br>
     This is calculated but can be over-ridden.
   </p>
 
@@ -20,17 +20,17 @@
   <%= fields_for @payment do |p| %>
 
     <p>
-      <%= p.label :payment_date %><br />
+      <%= p.label :payment_date %>
       <%= date_select :payment, :payment_date %>
     </p>
 
     <p>
-      <%= p.label :amount_in_pence %><br />
+      <%= p.label :amount_in_pence %>
       <%= p.text_field :amount_in_pence %>
     </p>
 
     <p>
-      <%= p.label :payment_method %><br>
+      <%= p.label :payment_method %>
       <%= collection_select(:payment, :payment_method_id, PaymentMethod.all, :id, :payment_method) %>
     </p>
 

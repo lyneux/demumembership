@@ -18,48 +18,48 @@
   </p>
 
   <p>
-    <%= f.label :forename %><br>
+    <%= f.label :forename %>
     <%= f.text_field :forename %>
   </p>
 
   <p>
-    <%= f.label :surname %><br>
+    <%= f.label :surname %>
     <%= f.text_field :surname %>
   </p>
 
   <p>
-    <%= f.label :date_of_birth %><br>
+    <%= f.label :date_of_birth %>
     <%= date_select :member, :date_of_birth, :start_year => 1920, :include_blank => true %>
   </p>
 
   <p>
-    <%= f.label :date_added %><br>
+    <%= f.label :date_added %>
     <%= date_select :member, :date_added, :include_blank => true %>
   </p>
 
   <p>
-    <%= f.label :member_category %><br>
+    <%= f.label :member_category %>
     <%= collection_select(:member, :member_category_id, MemberCategory.all, :id, :description) %>
   </p>
 
   <p>
-    <%= f.label :area_group %><br>
+    <%= f.label :area_group %>
     <%= collection_select(:member, :area_group_id, AreaGroup.all, :id, :description, :include_blank => true) %>
   </p>
 
   <p>
-    <%= f.label :notes %><br>
+    <%= f.label :notes %>
     <%= f.text_area :notes %>
   </p>
 
   <h2>Source Details</h2>
   <p>
-    <%= f.label :source_channel %><br>
+    <%= f.label :source_channel %>
     <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel, :include_blank => true ) %>
   </p>
 
   <p>
-    <%= f.label :signup_source %><br>
+    <%= f.label :signup_source %>
     <%= f.text_field :signup_source %>
   </p>
 
@@ -67,48 +67,48 @@
   <%= fields_for @contact_details do |c| %>
 
     <p>
-      <%= c.label :address_line_1 %><br>
+      <%= c.label :address_line_1 %>
       <%= c.text_field :address_line_1 %>
     </p>
 
     <p>
-      <%= c.label :address_line_2 %><br>
+      <%= c.label :address_line_2 %>
       <%= c.text_field :address_line_2 %>
     </p>
 
     <p>
-      <%= c.label :address_line_3 %><br>
+      <%= c.label :address_line_3 %>
       <%= c.text_field :address_line_3 %>
     </p>
 
     <p>
-      <%= c.label :town %><br>
+      <%= c.label :town %>
       <%= c.text_field :town %>
     </p>
 
     <p>
-      <%= c.label :county %><br>
+      <%= c.label :county %>
       <%= c.text_field :county %>
     </p>
 
     <p>
-      <%= c.label :postcode %><br>
+      <%= c.label :postcode %>
       <%= c.text_field :postcode %>
     </p>
 
     <p>
-      <%= c.label :country %><br>
+      <%= c.label :country %>
       
       <%= c.country_select :country, ["United Kingdom"] %>
     </p>
 
     <p>
-      <%= c.label :telephone %><br>
+      <%= c.label :telephone %>
       <%= c.text_field :telephone %>
     </p>
 
     <p>
-      <%= c.label :email %><br>
+      <%= c.label :email %>
       <%= c.text_field :email %>
     </p>
 
@@ -118,12 +118,12 @@
   <%= fields_for @forum_details do |fd| %>
 
     <p>
-      <%= fd.label :forum_id, "Forum ID" %><br>
+      <%= fd.label :forum_id, "Forum ID" %>
       <%= fd.text_field :forum_id %>
     </p>
 
     <p>
-      <%= fd.label :forum_name %><br>
+      <%= fd.label :forum_name %>
       <%= fd.text_field :forum_name %>
     </p>
 
