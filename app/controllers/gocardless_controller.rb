@@ -23,9 +23,7 @@ class GocardlessController < ApplicationController
 
       @member = Member.find(params[:member_id])
 
-      if Date.today.day == 1
-        @start_at = Date.today
-      else
+      unless Date.today.day == 1
         @start_at = Date.new(Date.today.year, Date.today.next_month.month, 1)
       end
 
