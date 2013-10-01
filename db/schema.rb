@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130930205001) do
+ActiveRecord::Schema.define(version: 20130930233655) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -118,5 +118,14 @@ ActiveRecord::Schema.define(version: 20130930205001) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subscriptions", force: true do |t|
+    t.string   "go_cardless_reference"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "member_id"
+  end
+
+  add_index "subscriptions", ["member_id"], name: "index_subscriptions_on_member_id", using: :btree
 
 end

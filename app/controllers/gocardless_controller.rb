@@ -23,12 +23,19 @@ class GocardlessController < ApplicationController
 
       @member = Member.find(params[:member_id])
 
+      if Date.today.day == 1
+        @start_at = Date.today
+      else
+        @start_at = Date.new(Date.today.year, Date.today.next_month.month, 1)
+      end
+
       url_params = {
         :amount          => @member.member_category.price_in_pence_per_year/100,
         :interval_unit   => "month",
         :interval_length => 12,
         :name            => "DEMU Subscription: " + @member.member_category.description,
         :state           => @member.id,
+        :start_at        => @start_at,
         :user => {
           :first_name => @member.forename,
           :last_name => @member.surname,
@@ -45,6 +52,12 @@ class GocardlessController < ApplicationController
 
     def confirm
       @member = Member.find(params[:state])
+
+      @resource_id = params[:resource_id]
+
+      @member.build_subscription(:go_cardless_reference => @resource_id)
+      #@member.subscription.go_cardless_reference = @resource_id
+      @member.save
 
       GoCardless.confirm_resource params
         render "gocardless/success"

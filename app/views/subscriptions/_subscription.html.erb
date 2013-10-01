@@ -1,0 +1,44 @@
+<p>
+  <strong>Go Cardless Reference:</strong>
+  <%= subscription.go_cardless_reference %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).status  %>
+</p>
+
+<p>
+  <strong>Interval Length:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).interval_length  %>
+</p>
+
+<p>
+  <strong>Interval Unit:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).interval_unit  %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).name  %>
+</p>
+
+<p>
+  <strong>Start At:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).start_at  %>
+</p>
+
+<p>
+  <strong>Created At:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).created_at  %>
+</p>
+
+<p>
+  <strong>Expires At:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).expires_at  %>
+</p>
+
+<p>
+  <strong>Next Interval Start:</strong>
+  <%= GoCardless::Subscription.find(subscription.go_cardless_reference).next_interval_start  %>
+</p>

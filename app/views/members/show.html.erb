@@ -77,5 +77,9 @@
 </p>
 
 <h2>Subscriptions</h2>
-<p>Nothing in here yet but will link to gocardless</p>
+<% if @member.subscription.nil? %>
+  No subscriptions registered
+<% else %>
+  <%= render @member.subscription %>
+<% end %>
 
