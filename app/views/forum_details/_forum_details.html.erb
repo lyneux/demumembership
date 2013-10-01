@@ -1,0 +1,14 @@
+
+<% if forum_details.nil? %>
+  No forum details registered
+<% else %>
+  <p>
+    <strong>Forum ID:</strong>
+    <%= forum_details.forum_id %>
+  </p>
+
+  <p>
+    <strong>Forum Name:</strong>
+    <%= forum_details.forum_name %>
+  </p>
+<% end %>

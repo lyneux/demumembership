@@ -1,7 +1,7 @@
-<h1>DEMU Subscription Sign-up (Existing User)</h1>
-<p>STEP2 - Confirm your membership</p>
+<h1>Subscription Sign-up (Existing User)</h1>
+<h2>STEP 2 - Confirm your membership</h2>
 
-<h2>Member Details: <%= @member.membership_number %></h2>
+<h3>Member Details: <%= @member.membership_number %></h3>
 <p>
   <strong>Forename:</strong>
   <%= @member.forename %>
@@ -13,7 +13,7 @@
 </p>
 
 
-<h2>Signup up via GoCardless</h2>
+<h3>Signup up via GoCardless</h3>
 
 <%= form_tag "/gocardless/step2_submit" do %>
   <%= hidden_field_tag "member_id", @member.id %>

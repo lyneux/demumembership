@@ -51,19 +51,7 @@
 </p>
 
  <h2>Forum Details</h2>
-<% if @member.forum_details.nil? %>
-  No forum details registered
-<% else %>
-  <p>
-    <strong>Forum ID:</strong>
-    <%= @member.forum_details.forum_id %>
-  </p>
-
-  <p>
-    <strong>Forum Name:</strong>
-    <%= @member.forum_details.forum_name %>
-  </p>
-<% end %>
+<%= render @member.forum_details %>
 
 <h2>Contact Details</h2>
 <%= render @member.contact_details %>
@@ -76,10 +64,11 @@
 <%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
 </p>
 
-<h2>Subscriptions</h2>
+<h2>Subscription</h2>
 <% if @member.subscription.nil? %>
-  No subscriptions registered
+  No subscription registered
 <% else %>
   <%= render @member.subscription %>
 <% end %>
+
 
