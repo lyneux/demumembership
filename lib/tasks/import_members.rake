@@ -67,7 +67,7 @@ task :import_members => :environment do
   		member = Member.create(memberdetails)
       contact_details = member.build_contact_details(contactdetails)
       
-      entitlementdata = {endDate: row['Renewal Date']}
+      entitlementdata = {end_date: row['Renewal Date']}
       unless row['Renewal Date'].to_s == ''
         entitlement = member.entitlement_periods.build(entitlementdata)
       end
