@@ -130,6 +130,19 @@ class MembersController < ApplicationController
   		render 'expire', :locals => { :members => members}
   	end
 
+  	def generate_passwords
+  		members = []
+  		for member in Member.all
+  			if !member.forum_details.nil?
+  				member.forum_details.forum_password = Digest::SHA1.hexdigest (member.forum_details.forum_name.to_s + 'test')
+	  			if member.save
+	  				members.push(member)
+	  			end
+	  		end
+  		end
+  		render 'generate_passwords', :locals => { :members => members}
+  	end
+
 	private
 		def member_params
 			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
