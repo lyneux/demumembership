@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
 
 	def create
 		puts "Creating session"
-		details = ForumDetails.find_by(forum_name: params[:session][:login].downcase)
+		details = ForumDetails.find(:first, :conditions => [ "lower(forum_name) = ?", params[:session][:login].downcase ])
+		puts "Found forum details:" + details.to_s
 		if details && details.authenticate(params[:session][:password])
 			# Sign the user in and redirect to the user's show page.
 			member = details.member
