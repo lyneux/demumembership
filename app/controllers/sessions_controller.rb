@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   	end
 
 	def create
+		puts "Creating session"
 		details = ForumDetails.find_by(forum_name: params[:session][:login].downcase)
 		if details && details.authenticate(params[:session][:password])
 			# Sign the user in and redirect to the user's show page.

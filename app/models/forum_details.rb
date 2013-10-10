@@ -16,6 +16,11 @@ class ForumDetails < ActiveRecord::Base
 	end
 
 	def authenticate(unencrypted_password)
+		puts "authenticating user"
+		puts "unencrypted_password:" + unencrypted_password
+		puts "digest of unencrypted_password:" + Digest::SHA1.hexdigest(forum_name + unencrypted_password)
+		puts "forum_name:" + forum_name
+		puts "forum_password:" + forum_password
 		forum_password == Digest::SHA1.hexdigest(forum_name + unencrypted_password)
 	end
 
