@@ -33,5 +33,13 @@ class Member < ActiveRecord::Base
   def expire
     membership_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
   end
+
+  def member_admin?
+    forum_details.role == Role.find_by_description(Role::MEMBER_ADMIN)
+  end
+
+  def area_group_admin?
+    forum_details.role == Role.find_by_description(Role::AREA_GROUP_ADMIN)
+  end
   
 end

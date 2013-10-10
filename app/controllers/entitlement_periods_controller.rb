@@ -1,5 +1,8 @@
 class EntitlementPeriodsController < ApplicationController
 
+	before_action :signed_in_member
+	before_action :member_admin
+
 	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 	
 	def new
@@ -46,9 +49,16 @@ class EntitlementPeriodsController < ApplicationController
 			params.require(:payment).permit(:payment_date, :amount_in_pence, :payment_method_id)
 		end
 
-	private
 		def entitlement_period_params
 			params.require(:entitlement_period).permit(:end_date)
 		end
+
+		def signed_in_member
+      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    	end
+
+		def member_admin
+    		redirect_to member_url(params[:member_id]), notice: "You are not allowed to perform that operation" unless member_admin?
+    	end
 	
 end

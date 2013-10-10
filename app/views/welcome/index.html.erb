@@ -1,10 +1,11 @@
 <div class="center hero-unit">
-	<h1>Membership Database</h1>
+	<h2>Membership Database</h2>
 
 	<h3>Main Functions - Member</h3>
 	<%= link_to "Log in", signin_path %></br>
 	<%= link_to "Log out", signout_path, method: "delete" %></br>
-	View/Update My Membership</br>
+	<%= link_to 'View My Membership', member_path(current_member) %></br>
+	Update My Membership</br>
 	Create/Delete My Subscription
 
 	<h3>Main Functions - Area Group Coordinator</h3>
@@ -16,7 +17,8 @@
 	<h3>Main Functions - Membership Secretary</h3>
 	<%= link_to "View Members", controller: "members" %></br>
 	<%= link_to "View Members (With Upcoming Renewal)", members_by_days_to_expiry_path('30') %></br>
-	Create/Update Members</br>
+	<%= link_to "Create Member", new_member_url() %></br>
+	Update Members (go to the members listing to test it)</br>
 	<%= link_to "Subscribe (Existing Members)", gocardless_step1_path %> (To be re-written)
 
 	<h3>Scheduled Jobs</h3>

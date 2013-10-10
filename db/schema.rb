@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004134411) do
+ActiveRecord::Schema.define(version: 20131007230158) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -57,10 +57,12 @@ ActiveRecord::Schema.define(version: 20131004134411) do
     t.integer  "member_id"
     t.string   "forum_password"
     t.string   "remember_token"
+    t.integer  "role_id"
   end
 
   add_index "forum_details", ["member_id"], name: "index_forum_details_on_member_id", using: :btree
   add_index "forum_details", ["remember_token"], name: "index_forum_details_on_remember_token", using: :btree
+  add_index "forum_details", ["role_id"], name: "index_forum_details_on_role_id", using: :btree
 
   create_table "member_categories", force: true do |t|
     t.string   "description"
@@ -115,6 +117,12 @@ ActiveRecord::Schema.define(version: 20131004134411) do
   end
 
   add_index "payments", ["payment_method_id"], name: "index_payments_on_payment_method_id", using: :btree
+
+  create_table "roles", force: true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "source_channels", force: true do |t|
     t.string   "channel"

@@ -43,3 +43,6 @@ AreaGroup.create(name: "Wales", description: "Wales", active: "false")
 AreaGroup.create(name: "WMAG", description: "West Midlands", active: "true")
 AreaGroup.create(name: "WRAG", description: "White Rose (Yorkshire)", active: "true")
 
+Role.create(description: "member")
+Role.create(description: "area group admin")
+Role.create(description: "member admin")

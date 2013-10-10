@@ -1,5 +1,8 @@
 class AreaGroupsController < ApplicationController
 
+	before_action :signed_in_member
+	before_action :area_group_admin,   only: [:edit, :update, :new, :create, :destroy]
+
 	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 
 	def new
@@ -59,4 +62,12 @@ class AreaGroupsController < ApplicationController
 		def coordinator_params
 			params.require(:area_group).permit(:coordinator)
 		end
+
+		def signed_in_member
+      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    	end
+
+		def area_group_admin
+    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless area_group_admin?
+    	end
 end

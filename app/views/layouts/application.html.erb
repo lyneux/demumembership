@@ -28,8 +28,12 @@
   			<div class="nav-collapse">
     			<ul class="nav pull-right">
     				<li><%= link_to "Home", controller: "welcome" %></li>
-    				<li><%= link_to "Members", members_path %></li>
-    				<li><%= link_to "Area Groups", controller: "area_groups" %></li>
+            <% if member_admin? %>
+    				  <li><%= link_to "Members", members_path %></li>
+            <% end %>
+            <% if area_group_admin? %>
+    				  <li><%= link_to "Area Groups", controller: "area_groups" %></li>
+            <% end %>
 
             <% if signed_in? %>
               <li><%= link_to "Log out", signout_path, method: "delete" %></li>

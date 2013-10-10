@@ -12,11 +12,13 @@
 
   <h2>Member Details</h2>
 
-  <p>
-    <%= f.label :membership_number %> (Current maximum = <%= @max_member_id %>)<br>
-    <%= f.text_field :membership_number %>
-  </p>
-
+  <% if member_admin? %>
+    <p>
+      <%= f.label :membership_number %> (Current maximum = <%= @max_member_id %>)<br>
+      <%= f.text_field :membership_number %>
+    </p>
+  <% end %>
+  
   <p>
     <%= f.label :forename %>
     <%= f.text_field :forename %>
@@ -32,36 +34,40 @@
     <%= date_select :member, :date_of_birth, :start_year => 1920, :include_blank => true %>
   </p>
 
-  <p>
-    <%= f.label :date_added %>
-    <%= date_select :member, :date_added, :include_blank => true %>
-  </p>
+  <% if member_admin? %>
 
-  <p>
-    <%= f.label :member_category %>
-    <%= collection_select(:member, :member_category_id, MemberCategory.all, :id, :description) %>
-  </p>
+    <p>
+      <%= f.label :date_added %>
+      <%= date_select :member, :date_added, :include_blank => true %>
+    </p>
 
-  <p>
-    <%= f.label :area_group %>
-    <%= collection_select(:member, :area_group_id, AreaGroup.all, :id, :description, :include_blank => true) %>
-  </p>
+    <p>
+      <%= f.label :member_category %>
+      <%= collection_select(:member, :member_category_id, MemberCategory.all, :id, :description) %>
+    </p>
 
-  <p>
-    <%= f.label :notes %>
-    <%= f.text_area :notes %>
-  </p>
+    <p>
+      <%= f.label :area_group %>
+      <%= collection_select(:member, :area_group_id, AreaGroup.all, :id, :description, :include_blank => true) %>
+    </p>
 
-  <h2>Source Details</h2>
-  <p>
-    <%= f.label :source_channel %>
-    <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel, :include_blank => true ) %>
-  </p>
+    <p>
+      <%= f.label :notes %>
+      <%= f.text_area :notes %>
+    </p>
 
-  <p>
-    <%= f.label :signup_source %>
-    <%= f.text_field :signup_source %>
-  </p>
+    <h2>Source Details</h2>
+    <p>
+      <%= f.label :source_channel %>
+      <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel, :include_blank => true ) %>
+    </p>
+
+    <p>
+      <%= f.label :signup_source %>
+      <%= f.text_field :signup_source %>
+    </p>
+
+  <% end %>
 
   <h2>Contact Details</h2>
   <%= fields_for @contact_details do |c| %>
@@ -114,19 +120,24 @@
 
   <% end %>
 
-  <h2>Forum Details</h2>
-  <%= fields_for @forum_details do |fd| %>
+  <% if member_admin? %>
+    <h2>Forum Details</h2>
+    <%= fields_for @forum_details do |fd| %>
 
-    <p>
-      <%= fd.label :forum_id, "Forum ID" %>
-      <%= fd.text_field :forum_id %>
-    </p>
+      <p>
+        <%= fd.label :forum_id, "Forum ID" %>
+        <%= fd.text_field :forum_id %>
+      </p>
 
-    <p>
-      <%= fd.label :forum_name %>
-      <%= fd.text_field :forum_name %>
-    </p>
+      <p>
+        <%= fd.label :forum_name %>
+        <%= fd.text_field :forum_name %>
+      </p>
+      
+      <%= fd.hidden_field :forum_password %>
+      <%= fd.hidden_field :remember_token %>
 
+    <% end %>
   <% end %>
 
   <p>

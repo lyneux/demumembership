@@ -1,5 +1,9 @@
 class MembersController < ApplicationController
 
+	before_action :signed_in_member, only: [:edit, :update, :show]
+	before_action :correct_member,   only: [:edit, :update, :show]
+	before_action :member_admin,   	 only: [:new, :index, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
+
 	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 
 	def new
@@ -68,19 +72,27 @@ class MembersController < ApplicationController
 	def update
 
   		@member = Member.find(params[:id])
-  		@member.member_category = MemberCategory.find(member_params[:member_category_id])
-  		@member.area_group = AreaGroup.find(member_params[:area_group_id])
+  		@member.member_category = MemberCategory.find(member_params[:member_category_id]) if member_admin?
+  		@member.area_group = AreaGroup.find(member_params[:area_group_id]) if member_admin?
   		unless member_params[:source_channel_id].to_s == ''
-  			@member.source_channel = SourceChannel.find(member_params[:source_channel_id]) 
+  			@member.source_channel = SourceChannel.find(member_params[:source_channel_id]) if member_admin?
   		end
 
   		@member.contact_details.update(contact_details_params)
   		
-  		#If forum_details is not empty - assume we have forum details:
-  		unless forum_details_params[:forum_id].blank?
-  			@member.build_forum_details(forum_details_params)
-  			@forum_details = @member.forum_details
-  		end
+  		#If we have forum details
+  		unless params[:forum_details].nil?
+  			#And if they are not empty...
+  			unless forum_details_params[:forum_id].blank?
+	  			#Do we already have any details?
+	  			if !@member.forum_details.nil?
+	  				@member.forum_details.update_attributes(forum_details_params)
+	  			else
+	  				@member.build_forum_details(forum_details_params)	
+	  			end
+	  			@forum_details = @member.forum_details
+	  		end
+	  	end
 
   		@member.update(member_params)
   		@contact_details = @member.contact_details
@@ -135,6 +147,10 @@ class MembersController < ApplicationController
   		for member in Member.all
   			if !member.forum_details.nil?
   				member.forum_details.forum_password = Digest::SHA1.hexdigest (member.forum_details.forum_name.to_s + 'test')
+  				member_role = Role.find_by_description(Role::MEMBER)
+				member_role = Role.find_by_description(Role::MEMBER_ADMIN) if (member.membership_number == 1571)
+  				member_role = Role.find_by_description(Role::AREA_GROUP_ADMIN) if (member.membership_number == 51)
+  				member.forum_details.role = member_role
 	  			if member.save
 	  				members.push(member)
 	  			end
@@ -145,18 +161,32 @@ class MembersController < ApplicationController
 
 	private
 		def member_params
-			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
+			if member_admin?
+				params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
+			else
+				params.require(:member).permit(:forename, :surname, :date_of_birth)
+			end
 		end
 
-	private
 		def contact_details_params
 			params.require(:contact_details).permit(:address_line_1, :address_line_2, :address_line_3, :town, :county, :postcode, :country, :telephone, :email)
 		end
 
-	private
 		def forum_details_params
-			params.require(:forum_details).permit(:forum_id, :forum_name)
+			params.require(:forum_details).permit(:forum_id, :forum_name, :forum_password, :remember_token)
 		end
 
+		def signed_in_member
+      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    	end
+
+    	def correct_member
+      		@member = Member.find(params[:id])
+      		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (current_member?(@member) || member_admin?)
+    	end
+
+    	def member_admin
+    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless member_admin?
+    	end
 	
 end

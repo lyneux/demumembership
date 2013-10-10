@@ -60,9 +60,11 @@
 
 <h2>Entitlement Periods</h2>
 <%= render @member.entitlement_periods %>
-<p>
-<%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
-</p>
+<% if member_admin? %>
+  <p>
+    <%= link_to 'Add Entitlement Period', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
+  </p>
+<% end %>
 
 <h2>Subscription</h2>
 <% if @member.subscription.nil? %>

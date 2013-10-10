@@ -19,12 +19,31 @@ module SessionsHelper
 		remember_token = ForumDetails.encrypt(cookies[:remember_token])
 		forum_details = ForumDetails.find_by(remember_token: remember_token)
 		if !forum_details.nil?
-			@member ||= forum_details.member
+			@current_member ||= forum_details.member
 		end
+		@current_member
 	end
+
+	def current_member?(member)
+    	member == current_member
+  	end
 
 	def signed_in?
  		!current_member.nil?
+	end
+
+	def member_admin?
+		current_member.member_admin? if !current_member.nil?
+	end
+
+	def area_group_admin?
+		result = false
+		result = current_member.area_group_admin? if !current_member.nil?
+		if !result
+			#member_admins are area group admins too!
+			result = current_member.member_admin? if !current_member.nil?
+		end
+		result
 	end
 
 end
