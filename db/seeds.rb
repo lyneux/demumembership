@@ -49,3 +49,6 @@ Role.create(description: "member admin")
 
 SubscriptionRenewalType.create(description: "manual")
 SubscriptionRenewalType.create(description: "direct debit")
+
+PaymentStatus.create(description: "pending")
+PaymentStatus.create(description: "complete")

@@ -22,6 +22,10 @@
 	<%= link_to "Subscribe (Existing Members)", gocardless_step1_path %> (To be re-written)
 
 	<h3>Scheduled Jobs</h3>
-	Note: these aren't yet scheduled to run so must be run manually for the moment.</br>
-	<%= link_to "Expire Members", members_expire_path %></br>
+	<p>Note: these aren't yet scheduled to run so must be run manually for the moment.</p>
+	
+	<p><%= link_to "Expire Members", members_expire_path %></br>
+		Runs monthly to set any member states that have expired.</p>
+	<p><%= link_to "Request DD Payments", members_request_dd_payments_path %></br>
+		Runs weekly to request payment from anyone due to renew by DD in the next week.</p>
 </div>
