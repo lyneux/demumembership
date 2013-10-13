@@ -73,4 +73,12 @@
   <%= render @member.subscription %>
 <% end %>
 
+<h2>Go Cardless Payment Method</h2>
+<% if @member.go_cardless_payment_method.nil? %>
+  <p>No payment method registered</p>
+  <%= link_to 'Add Go Cardless Payment Method', new_member_go_cardless_payment_method_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
+<% else %>
+  <%= render @member.go_cardless_payment_method %>
+<% end %>
+
 

@@ -1,0 +1,54 @@
+<p>
+  <strong>Go Cardless Reference:</strong>
+  <%= go_cardless_payment_method.go_cardless_reference %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).status  %>
+</p>
+
+<p>
+  <strong>Interval Length:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).interval_length  %>
+</p>
+
+<p>
+  <strong>Interval Unit:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).interval_unit  %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).name  %>
+</p>
+
+<p>
+  <strong>Created At:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).created_at  %>
+</p>
+
+<p>
+  <strong>Expires At:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).expires_at  %>
+</p>
+
+<p>
+  <strong>Next Interval Start:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).next_interval_start  %>
+</p>
+
+<p>
+  <strong>Max Amount:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).max_amount  %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).amount  %>
+</p>
+
+<p>
+  <strong>Remaining Amount:</strong>
+  <%= GoCardless::PreAuthorization.find(go_cardless_payment_method.go_cardless_reference).remaining_amount  %>
+</p>

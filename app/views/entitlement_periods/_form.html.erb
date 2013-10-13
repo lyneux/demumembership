@@ -30,8 +30,8 @@
     </p>
 
     <p>
-      <%= p.label :payment_method %>
-      <%= collection_select(:payment, :payment_method_id, PaymentMethod.all, :id, :payment_method) %>
+      <%= p.label :payment_type %>
+      <%= collection_select(:payment, :payment_type_id, PaymentType.all, :id, :description) %>
     </p>
 
   <% end %>

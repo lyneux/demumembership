@@ -7,6 +7,7 @@ class Member < ActiveRecord::Base
   has_one :contact_details, dependent: :destroy, autosave: true
   has_one :forum_details, dependent: :destroy, autosave: true
   has_one :subscription, dependent: :destroy, autosave: true
+  has_one :go_cardless_payment_method, dependent: :destroy, autosave: true, as: :payment_methodable
   
   validates :forename, presence: true, length: {minimum: 1 }
   validates :surname, presence: true, length: {minimum: 2}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007230158) do
+ActiveRecord::Schema.define(version: 20131011131856) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20131007230158) do
   add_index "forum_details", ["remember_token"], name: "index_forum_details_on_remember_token", using: :btree
   add_index "forum_details", ["role_id"], name: "index_forum_details_on_role_id", using: :btree
 
+  create_table "go_cardless_payment_methods", force: true do |t|
+    t.string   "go_cardless_reference"
+    t.integer  "payment_methodable_id"
+    t.string   "payment_methodable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "member_categories", force: true do |t|
     t.string   "description"
     t.integer  "price_in_pence_per_year"
@@ -100,8 +108,8 @@ ActiveRecord::Schema.define(version: 20131007230158) do
     t.datetime "updated_at"
   end
 
-  create_table "payment_methods", force: true do |t|
-    t.string   "payment_method"
+  create_table "payment_types", force: true do |t|
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -113,10 +121,10 @@ ActiveRecord::Schema.define(version: 20131007230158) do
     t.string   "payable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "payment_method_id"
+    t.integer  "payment_type_id"
   end
 
-  add_index "payments", ["payment_method_id"], name: "index_payments_on_payment_method_id", using: :btree
+  add_index "payments", ["payment_type_id"], name: "index_payments_on_payment_type_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "description"

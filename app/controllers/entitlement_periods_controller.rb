@@ -24,7 +24,7 @@ class EntitlementPeriodsController < ApplicationController
 
 		@entitlement_period.build_payment(payment_params)
 		@payment = @entitlement_period.payment
-		@payment.payment_method = PaymentMethod.find(payment_params[:payment_method_id])
+		@payment.payment_type= PaymentType.find(payment_params[:payment_type_id])
 
 		@entitlement_period.save
 		
@@ -46,7 +46,7 @@ class EntitlementPeriodsController < ApplicationController
 
 	private
 		def payment_params
-			params.require(:payment).permit(:payment_date, :amount_in_pence, :payment_method_id)
+			params.require(:payment).permit(:payment_date, :amount_in_pence, :payment_type_id)
 		end
 
 		def entitlement_period_params
