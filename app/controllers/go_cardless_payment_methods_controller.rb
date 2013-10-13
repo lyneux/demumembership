@@ -30,6 +30,10 @@ class GoCardlessPaymentMethodsController < ApplicationController
 		@resource_id = params[:resource_id]
 
 		@member.build_go_cardless_payment_method(:go_cardless_reference => @resource_id)
+
+		renewal_type = SubscriptionRenewalType.find_by_description(SubscriptionRenewalType::DIRECT_DEBIT)
+		@member.build_subscription(subscription_renewal_type: renewal_type) if @member.subscription.nil?
+		@member.subscription.subscription_renewal_type = renewal_type
 		@member.save
 
 		GoCardless.confirm_resource params

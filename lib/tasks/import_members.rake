@@ -76,17 +76,17 @@ task :import_members => :environment do
         paymentdata = {amount_in_pence: (row['Amount paid'].to_i * 100), payment_date: row['Date paid']}
         case row['Payment method']
         when 'Paypal'
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('paypal')
+          paymentdata[:payment_type] = PaymentType.find_by_description('paypal')
         when 'BP'
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('bank transfer')
+          paymentdata[:payment_type] = PaymentType.find_by_description('bank transfer')
         when 'Cheque'
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('cheque')
+          paymentdata[:payment_type] = PaymentType.find_by_description('cheque')
         when 'Cash'
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('cash')
+          paymentdata[:payment_type] = PaymentType.find_by_description('cash')
         when 'DD'
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('direct debit')
+          paymentdata[:payment_type] = PaymentType.find_by_description('direct debit')
         else
-          paymentdata[:payment_method] = PaymentMethod.find_by_payment_method('cash')
+          paymentdata[:payment_type] = PaymentType.find_by_description('cash')
         end
         if (!paymentdata[:amount_in_pence].nil? & !paymentdata[:payment_date].nil?)
           payment = entitlement.build_payment(paymentdata)
@@ -94,10 +94,27 @@ task :import_members => :environment do
       end
 
       #unless row['Forum ID'].to_s == ''
-        forumdata = {forum_id: (row['Forum ID']), forum_name: (row['Forum Name'])}
+      forumdata = {forum_id: (row['Forum ID']), forum_name: (row['Forum Name'])}
         #forumdata[:forum_name] = row['Forum Name'] unless row['Forum Name'].to_s.delete(' ') == ''
-        foumdetails = member.build_forum_details(forumdata)
+      foumdetails = member.build_forum_details(forumdata)
       #end
+
+      #Set password and role
+      if !member.forum_details.nil?
+        member.forum_details.forum_password = Digest::SHA1.hexdigest (member.forum_details.forum_name.to_s + 'test')
+        member_role = Role.find_by_description(Role::MEMBER)
+        member_role = Role.find_by_description(Role::MEMBER_ADMIN) if (member.membership_number == 1571)
+        member_role = Role.find_by_description(Role::AREA_GROUP_ADMIN) if (member.membership_number == 51)
+        member.forum_details.role = member_role
+      end
+
+      if row['Payment method'] == 'DD'
+        renewal_type = SubscriptionRenewalType.find_by_description(SubscriptionRenewalType::DIRECT_DEBIT)
+      else
+        renewal_type = SubscriptionRenewalType.find_by_description(SubscriptionRenewalType::MANUAL)
+      end
+      subscription_data = {subscription_renewal_type: renewal_type}
+      member.build_subscription(subscription_data)
 
       member.save
 

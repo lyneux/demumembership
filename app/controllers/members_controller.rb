@@ -142,23 +142,6 @@ class MembersController < ApplicationController
   		render 'expire', :locals => { :members => members}
   	end
 
-  	def generate_passwords
-  		members = []
-  		for member in Member.all
-  			if !member.forum_details.nil?
-  				member.forum_details.forum_password = Digest::SHA1.hexdigest (member.forum_details.forum_name.to_s + 'test')
-  				member_role = Role.find_by_description(Role::MEMBER)
-				member_role = Role.find_by_description(Role::MEMBER_ADMIN) if (member.membership_number == 1571)
-  				member_role = Role.find_by_description(Role::AREA_GROUP_ADMIN) if (member.membership_number == 51)
-  				member.forum_details.role = member_role
-	  			if member.save
-	  				members.push(member)
-	  			end
-	  		end
-  		end
-  		render 'generate_passwords', :locals => { :members => members}
-  	end
-
 	private
 		def member_params
 			if member_admin?

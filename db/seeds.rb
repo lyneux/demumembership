@@ -20,11 +20,11 @@ SourceChannel.create(channel: "exhibition")
 SourceChannel.create(channel: "online")
 SourceChannel.create(channel: "showcase")
 
-PaymentType.create(payment_type: "cheque")
-PaymentType.create(payment_type: "paypal")
-PaymentType.create(payment_type: "direct debit")
-PaymentType.create(payment_type: "bank transfer")
-PaymentType.create(payment_type: "cash")
+PaymentType.create(description: "cheque")
+PaymentType.create(description: "paypal")
+PaymentType.create(description: "direct debit")
+PaymentType.create(description: "bank transfer")
+PaymentType.create(description: "cash")
 
 AreaGroup.create(name: "3CAG", description: "Three Counties: N Notts, N Derbs., S Yorks.", active: "true")
 AreaGroup.create(name: "ANGLIA", description: "East Anglia", active: "true")
@@ -46,3 +46,6 @@ AreaGroup.create(name: "WRAG", description: "White Rose (Yorkshire)", active: "t
 Role.create(description: "member")
 Role.create(description: "area group admin")
 Role.create(description: "member admin")
+
+SubscriptionRenewalType.create(description: "manual")
+SubscriptionRenewalType.create(description: "direct debit")

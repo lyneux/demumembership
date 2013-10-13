@@ -9,7 +9,7 @@ class PaymentType < ActiveRecord::Base
 
 	ALL_TYPES = [CHEQUE, PAYPAL, DIRECT_DEBIT, BANK_TRANSFER, CASH]
 
-	validates_inclusion_of :payment_type, :in => ALL_TYPES
+	validates_inclusion_of :description, :in => ALL_TYPES
 
 	def to_s
 		description
