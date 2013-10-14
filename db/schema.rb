@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013165331) do
+ActiveRecord::Schema.define(version: 20131014083034) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -43,11 +43,9 @@ ActiveRecord::Schema.define(version: 20131013165331) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "payment_id"
   end
 
   add_index "entitlement_periods", ["member_id"], name: "index_entitlement_periods_on_member_id", using: :btree
-  add_index "entitlement_periods", ["payment_id"], name: "index_entitlement_periods_on_payment_id", using: :btree
 
   create_table "forum_details", force: true do |t|
     t.integer  "forum_id"
