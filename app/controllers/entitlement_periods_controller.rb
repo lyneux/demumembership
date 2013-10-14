@@ -25,6 +25,7 @@ class EntitlementPeriodsController < ApplicationController
 		@entitlement_period.build_payment(payment_params)
 		@payment = @entitlement_period.payment
 		@payment.payment_type= PaymentType.find(payment_params[:payment_type_id])
+		@payment.payment_status = PaymentStatus.find_by_description('complete')
 
 		@entitlement_period.save
 		

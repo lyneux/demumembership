@@ -8,6 +8,7 @@
   		<%= entitlement_period.payment.payment_date %>
   		<%= entitlement_period.payment.payment_type %>
   		<%= number_to_currency(entitlement_period.payment.amount_in_pence.to_f/100, :unit => "&pound;") %>
+  		<%= entitlement_period.payment.payment_status %>
   	<% else %>
   		No Payment recorded
   	<% end %>
