@@ -2,19 +2,16 @@
 <% if entitlement_period.persisted? %>
 
 <p>
-	<strong>Payment:</strong>
+  	<strong>Entitlement End:</strong>
+ 	<%= entitlement_period.end_date %>
+
+ 	<strong>Related Payment:</strong>
 
 	<% unless entitlement_period.payment.nil? %>
-  		<%= entitlement_period.payment.payment_date %>
-  		<%= entitlement_period.payment.payment_type %>
-  		<%= number_to_currency(entitlement_period.payment.amount_in_pence.to_f/100, :unit => "&pound;") %>
-  		<%= entitlement_period.payment.payment_status %>
+  		<%= render entitlement_period.payment %>
   	<% else %>
   		No Payment recorded
   	<% end %>
-
-  	<strong>Entitlement End:</strong>
- 	<%= entitlement_period.end_date %>
 </p>
 
 <% end %>

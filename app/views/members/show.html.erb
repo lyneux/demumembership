@@ -58,7 +58,19 @@
 
 <%= link_to "Edit Member Details", edit_member_path(@member), class: "btn btn-small"  %>
 
+<h2>Payments</h2>
+<table class="table">
+  <tr>
+    <th>Payment Date</th>
+    <th>Payment Type</th>
+    <th>Payment Currency</th>
+    <th>Payment Status</th>
+  </tr>
+  <tr><%= render partial: @member.payments, spacer_template: "payment_ruler" %></tr>
+</table>
+
 <h2>Entitlement Periods</h2>
+
 <%= render @member.entitlement_periods %>
 <% if member_admin? %>
   <p>

@@ -66,6 +66,7 @@ task :import_members => :environment do
 
   		member = Member.create(memberdetails)
       contact_details = member.build_contact_details(contactdetails)
+      member.save
       
       entitlementdata = {end_date: row['Renewal Date']}
       unless row['Renewal Date'].to_s == ''
@@ -74,7 +75,9 @@ task :import_members => :environment do
 
       unless row['Payment method'].to_s == ''
         payment_status = PaymentStatus.find_by_description('complete')
-        paymentdata = {amount_in_pence: (row['Amount paid'].to_i * 100), payment_date: row['Date paid'], payment_status: payment_status}
+        paymentdata = {amount_in_pence: (row['Amount paid'].to_i * 100), payment_date: row['Date paid']}
+        paymentdata[:payment_status] = payment_status
+        paymentdata[:member_id] = member.id
         case row['Payment method']
         when 'Paypal'
           paymentdata[:payment_type] = PaymentType.find_by_description('paypal')

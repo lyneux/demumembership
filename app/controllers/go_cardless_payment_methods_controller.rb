@@ -4,10 +4,10 @@ class GoCardlessPaymentMethodsController < ApplicationController
 		@member = Member.find(params[:member_id])
 
 		url_params = {
-			:amount          => @member.member_category.price_in_pence_per_year/100,
+			:amount          => 5000,
 			:interval_unit   => "month",
-			:interval_length => 12,
-			:name            => "DEMU Subscription: " + @member.member_category.description,
+			:interval_length => 1,
+			:name            => "DEMU Subscription",
 			:state           => @member.id,
 			:redirect_uri    => URI.join(root_url, member_go_cardless_payment_methods_create_path(@member)).to_s,
 			:user => {

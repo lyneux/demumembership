@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014083034) do
+ActiveRecord::Schema.define(version: 20131014223630) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -127,8 +127,11 @@ ActiveRecord::Schema.define(version: 20131014083034) do
     t.datetime "updated_at"
     t.integer  "payment_type_id"
     t.integer  "payment_status_id"
+    t.integer  "member_id"
+    t.string   "go_cardless_reference"
   end
 
+  add_index "payments", ["member_id"], name: "index_payments_on_member_id", using: :btree
   add_index "payments", ["payment_status_id"], name: "index_payments_on_payment_status_id", using: :btree
   add_index "payments", ["payment_type_id"], name: "index_payments_on_payment_type_id", using: :btree
 

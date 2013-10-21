@@ -1,5 +1,6 @@
 class Member < ActiveRecord::Base
   has_many :entitlement_periods, dependent: :destroy
+  has_many :payments, dependent: :destroy
   belongs_to :membership_status
   belongs_to :member_category
   belongs_to :source_channel
@@ -42,5 +43,16 @@ class Member < ActiveRecord::Base
   def area_group_admin?
     forum_details.role == Role.find_by_description(Role::AREA_GROUP_ADMIN)
   end
-  
+
+  def has_pending_payment
+    pending = false
+    for payment in payments
+      pending_status = PaymentStatus.find_by_description(PaymentStatus::PENDING)
+      if payment.payment_status == pending_status
+        pending = true
+      end
+    end
+    pending
+  end
+
 end

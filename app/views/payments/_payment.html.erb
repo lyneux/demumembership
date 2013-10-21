@@ -1,0 +1,4 @@
+<td><%= payment.payment_date %></td>
+<td><%= payment.payment_type %></td>
+<td><%= number_to_currency(payment.amount_in_pence.to_f/100, :unit => "&pound;") %></td>
+<td><%= payment.payment_status %></td>

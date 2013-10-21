@@ -142,22 +142,6 @@ class MembersController < ApplicationController
   		render 'expire', :locals => { :members => members}
   	end
 
-  	def request_dd_payments
-  		entitlements_expiring_soon = EntitlementPeriod.where("end_date < ?", Date.today + 30.day)
-  		members = []
-
-		for entitlement in entitlements_expiring_soon
-			member = Member.find(entitlement.member.id)
-			direct_debit_renewal_type = SubscriptionRenewalType.find_by_description(SubscriptionRenewalType::DIRECT_DEBIT)
-			if member.subscription.subscription_renewal_type == direct_debit_renewal_type
-				members.push(member)
-			end
-  		end
-
-  		render 'dd_payments_requested', :locals => { :members => members}
-  	end
-
-
 	private
 		def member_params
 			if member_admin?
