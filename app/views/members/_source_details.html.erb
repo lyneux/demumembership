@@ -1,0 +1,10 @@
+ <% if member_admin? %>
+    <h3>Source Details</h3>
+    <p>
+      Sign-up Source Channel:
+      <strong><%= @member.source_channel %></strong><br/>
+    
+      Sign-up Source:
+      <strong><%= @member.signup_source %></strong>
+    </p>
+<% end %>

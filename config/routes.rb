@@ -19,15 +19,8 @@ Demumembership::Application.routes.draw do
   get '/members/by_days_to_expiry/:number_of_days_until_expiry', to: 'members#upcoming_renewals', as: 'members_by_days_to_expiry'
   get '/members/expire', to: 'members#expire', as: 'members_expire'
 
-  #get 'gocardless/step1'
-  #post 'gocardless/step1_submit'
-  get 'gocardless/step2/:member_id', to: 'gocardless#step2', as: 'gocardless_step2'
-  post 'gocardless/step2_submit'
   get 'gocardless/confirm'
 
-
-  match '/gocardless/step1',         to: 'gocardless#step1',            via: 'get'
-  match '/gocardless/step1_submit',  to: 'gocardless#step1_submit',     via: 'post'
   match '/signin',                   to: 'sessions#new',                via: 'get'
   match '/signout',                  to: 'sessions#destroy',            via: 'delete'
 

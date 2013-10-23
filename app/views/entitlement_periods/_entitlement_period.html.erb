@@ -1,17 +1,13 @@
 
 <% if entitlement_period.persisted? %>
 
-<p>
-  	<strong>Entitlement End:</strong>
- 	<%= entitlement_period.end_date %>
-
- 	<strong>Related Payment:</strong>
-
+<td><%= entitlement_period.end_date %></td>
+<td>
 	<% unless entitlement_period.payment.nil? %>
-  		<%= render entitlement_period.payment %>
+  		<%= entitlement_period.payment.id %>
   	<% else %>
   		No Payment recorded
   	<% end %>
-</p>
+ </td>
 
 <% end %>
