@@ -32,8 +32,14 @@ class Member < ActiveRecord::Base
     forename + " " + surname
   end
 
+  def activate
+    self.membership_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
+    self.save
+  end
+
   def expire
-    membership_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
+    self.membership_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
+    self.save
   end
 
   def member_admin?
@@ -55,4 +61,48 @@ class Member < ActiveRecord::Base
     pending
   end
 
+  def add_entitlement_period(payment)
+    # Only add an entitlement period if the payment is not linked to one already
+    if payment.payable.nil?
+      puts "starting creating entitlement period"
+
+      entitlementdata = {end_date: calculate_next_entitlement_period_end_date}
+      entitlement_period = entitlement_periods.build(entitlementdata)
+    
+      entitlement_period.member = self
+      entitlement_period.payment = payment
+
+      puts "saving entitlement period"
+      entitlement_period.save
+      
+      puts "finished creating entitlement period"
+
+      puts entitlement_period.errors.to_yaml
+
+      self.activate
+      self.save
+    else
+      puts "An entitlement period already exists for this payment"
+    end
+  end
+
+
+  def revoke_entitlement_period(payment)
+    unless payment.payable.nil?
+      payment.payable.destroy
+    end
+    puts "Entitlement period removed from payment with id: " + payment.id.to_s
+  end
+
+  # Either works out the end date based on the current entitlement period or
+  # adds a year to the current date
+  def calculate_next_entitlement_period_end_date()
+    latest_entitlement = find_latest_entitlement
+    if latest_entitlement.nil?
+      Date.new(Date.today.next_year.year, Date.today.next_month.month, 1)
+    else
+      latest_entitlement.end_date.next_year
+    end
+  end
+  
 end

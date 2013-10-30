@@ -1,6 +1,6 @@
 class GoCardlessPaymentMethodsController < ApplicationController
+	
 	def new
-
 		@member = Member.find(params[:member_id])
 
 		url_params = {

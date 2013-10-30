@@ -128,14 +128,15 @@ class MembersController < ApplicationController
 		entitlements_expiring = EntitlementPeriod.where("end_date < ?", Date.today)
 		members = []
 		live_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
-		expired_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
 
 		for entitlement in entitlements_expiring
 			@member = Member.find(entitlement.member.id)
 			if @member.membership_status == live_status
-  				members.push(@member)
-	  			@member.membership_status_id = expired_status.id
-	  			@member.save
+				if entitlement == @member.find_latest_entitlement
+  					members.push(@member)
+	  				@member.expire
+	  				
+	  			end
   			end
   			
   		end

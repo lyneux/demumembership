@@ -9,5 +9,10 @@
   		No Payment recorded
   	<% end %>
  </td>
+ <td>
+ 	<% if entitlement_period.last %>
+ 		<%= link_to 'Remove', [entitlement_period.member, entitlement_period], method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-small" %>
+ 	<% end %>
+ </td>
 
 <% end %>

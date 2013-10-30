@@ -52,3 +52,6 @@ SubscriptionRenewalType.create(description: "direct debit")
 
 PaymentStatus.create(description: "pending")
 PaymentStatus.create(description: "complete")
+PaymentStatus.create(description: "failed")
+PaymentStatus.create(description: "refunded")
+PaymentStatus.create(description: "chargedback")

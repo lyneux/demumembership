@@ -40,22 +40,29 @@ class PaymentsController < ApplicationController
 		if GoCardless.webhook_valid?(params[:payload])
 			render :text => "true", :status => 200
 			data = params[:payload]
-			if data[:resource_type] == "bill" && data[:action] == "paid"
+			if data[:resource_type] == "bill"
 				data[:bills].each do |bill|
 					puts "BILL=" + bill.to_yaml
-					case bill[:status]
+					puts "ACTION=" + data[:action]
+					payment = Payment.find_by_go_cardless_reference(bill[:id])
+					case data[:action]
+					when 'created'
+						#IGNORE
 					when 'paid'
-						payment = Payment.find_by_go_cardless_reference(bill[:id])
-						unless payment.payment_status == PaymentStatus.find_by_description('complete')
-							payment.paid
-							entitlement_period = EntitlementPeriod.new()
-							entitlement_period.end_date = entitlement_period.calculate_next_end_date(payment.member)
-							entitlement_period.payment = payment
-							entitlement_period.member = payment.member
-							entitlement_period.save
-						end
+						payment.paid
+						payment.member.add_entitlement_period(payment)
+					when 'withdrawn'
+						#IGNORE
+					when 'failed'
+						payment.failed
+					when 'refunded'
+						payment.refunded
+					when 'chargedback'
+						payment.chargedback
+						payment.member.revoke_entitlement_period(payment)
+					when 'retried'
+						payment.retried
 					else
-
 						puts "Unknown status=" + bill.status
 					end
 				end
@@ -63,6 +70,20 @@ class PaymentsController < ApplicationController
 		else
 			render :text => "false", :status => 403
 		end
+	end
+
+	def test_handle_notification
+		payment = Payment.find_by_go_cardless_reference('0FFMYHSJKH')
+		
+		payment.paid
+		payment.member.add_entitlement_period(payment)
+
+		#payment.chargedback
+		#payment.member.revoke_entitlement_period(payment)
+
+		puts "MEMBER STATUS = " + payment.member.membership_status.to_s
+		redirect_to member_path(payment.member)
+
 	end
 
 	private

@@ -26,7 +26,8 @@ Demumembership::Application.routes.draw do
 
   get '/payments/create_dd_payments', to: 'payments#create_dd_payments', as: 'payments_create_dd_payments'
   post '/payments/handle_notification',  to: 'payments#handle_notification', as: 'payments_handle_notification'
-  get '/payments/handle_notification2',  to: 'payments#handle_notification', as: 'payments_handle_notification2'
+
+  get '/payments/test_handle_notification',  to: 'payments#test_handle_notification', as: 'payments_test_handle_notification'
 
   resources :members do
     resources :entitlement_periods

@@ -2,6 +2,7 @@ class EntitlementPeriodsController < ApplicationController
 
 	before_action :signed_in_member
 	before_action :member_admin
+	before_action :last_entitlement, only: [:destroy]
 
 	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 	
@@ -13,7 +14,7 @@ class EntitlementPeriodsController < ApplicationController
 		# Help out by settings some defaults:
 		@payment.payment_date = Date.today
 		@payment.amount_in_pence = @member.member_category.price_in_pence_per_year
-		@entitlement_period.end_date = @entitlement_period.calculate_next_end_date(@member)
+		@entitlement_period.end_date = @member.calculate_next_entitlement_period_end_date
 	end
 
 	def create
@@ -26,6 +27,7 @@ class EntitlementPeriodsController < ApplicationController
 		@payment = @entitlement_period.payment
 		@payment.payment_type= PaymentType.find(payment_params[:payment_type_id])
 		@payment.payment_status = PaymentStatus.find_by_description('complete')
+		@payment.member = @member
 
 		@entitlement_period.save
 		
@@ -37,13 +39,13 @@ class EntitlementPeriodsController < ApplicationController
 
 	end
 
-	# We never want to delete these from the database so don't even allow this method
-	#def destroy
-	#	@member = Member.find(params[:member_id])
-	#	@entitlement_period = @member.entitlement_periods.find(params[:id])
-	#	@entitlement_period.destroy
-	#	redirect_to member_path(@member)
-	#end
+	
+	def destroy
+		entitlement_period = EntitlementPeriod.find(params[:id])
+		entitlement_period.destroy
+		@member = Member.find(params[:member_id])
+		redirect_to member_path(@member), notice: "Latest membership period removed"
+	end
 
 	private
 		def payment_params
@@ -61,5 +63,12 @@ class EntitlementPeriodsController < ApplicationController
 		def member_admin
     		redirect_to member_url(params[:member_id]), notice: "You are not allowed to perform that operation" unless member_admin?
     	end
+
+    	def last_entitlement
+    		entitlement_period = EntitlementPeriod.find(params[:id])
+    		redirect_to member_url(params[:member_id]), notice: "Only the last entitlement can be removed" unless entitlement_period.last
+    	end
+
+
 	
 end

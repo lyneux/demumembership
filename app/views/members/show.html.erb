@@ -85,7 +85,7 @@
       </table>
     <% end %>
     <% if member_admin? %>
-      <p><%= link_to 'Add Membership Period', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %></p>
+      <p><%= link_to 'Add Membership Period and Payment', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %></p>
     <% end %>
   </div>
 

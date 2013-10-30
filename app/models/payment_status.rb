@@ -3,8 +3,11 @@ class PaymentStatus < ActiveRecord::Base
 
 	PENDING = "pending"
 	COMPLETE = "complete"
+	FAILED = "failed"
+	REFUNDED = "refunded"
+	CHARGEDBACK = "chargedback"
 
-	ALL_TYPES = [PENDING, COMPLETE]
+	ALL_TYPES = [PENDING, COMPLETE, FAILED, REFUNDED, CHARGEDBACK]
 
 	validates_inclusion_of :description, :in => ALL_TYPES
 

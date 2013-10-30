@@ -14,4 +14,25 @@ class Payment < ActiveRecord::Base
 		self.payment_status = PaymentStatus.find_by_description('complete')
 		self.save
 	end
+
+	def failed
+		self.payment_status = PaymentStatus.find_by_description('failed')
+		self.save
+	end
+
+	def refunded
+		self.payment_status = PaymentStatus.find_by_description('refunded')
+		self.save
+	end
+
+	def chargedback
+		self.payment_status = PaymentStatus.find_by_description('chargedback')
+		self.save
+	end
+
+	def retried
+		self.payment_status = PaymentStatus.find_by_description('pending')
+		self.save
+	end
+
 end

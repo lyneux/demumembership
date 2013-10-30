@@ -6,6 +6,12 @@ module MembersHelper
 	      		"success"
 	    	when "pending"
 	      		"warning"
+	      	when "failed"
+	      		"important"
+	      	when "chargedback"
+	      		"important"
+	      	when "refunded"
+	      		"info"
 	    	else
 	      		"default"
 	    end
