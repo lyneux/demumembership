@@ -3,7 +3,7 @@ task :import_members => :environment do
 
 	require 'csv' 
   
-	csv_text = File.read('lib/tasks/TEST_IMPORT_TO_DATABASE_20130922.csv')
+	csv_text = File.read('lib/tasks/TEST_IMPORT_TO_DATABASE_20131030.csv')
 	csv = CSV.parse(csv_text, :headers => true)
 	csv.each do |row|
   		puts 'IMPORTING: ' + row['Membership number'] + ' ' + row['Forename'] + ' ' + row['Surname']

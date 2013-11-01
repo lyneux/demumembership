@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
 	protect_from_forgery except: :handle_notification
 
+	before_action :signed_in_member, only: [:destroy]
+	before_action :member_admin, only: [:destroy]
+	before_action :gocardless_payment?, only: [:destroy]
+
 	def create_dd_payments
   		entitlements_expiring_soon = EntitlementPeriod.where("end_date < ?", Date.today + 7.day)
   		members = []
@@ -86,8 +90,25 @@ class PaymentsController < ApplicationController
 
 	end
 
-	private
-		def create_entitlement
+	def destroy
+		payment = Payment.find(params[:id])
+		member = payment.member
+		payment.destroy
+		redirect_to member_path(member), notice: "Payment removed"
+	end
 
-		end
+	private
+		def signed_in_member
+      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    	end
+
+		def member_admin
+    		redirect_to member_url(params[:member_id]), notice: "You are not allowed to perform that operation" unless member_admin?
+    	end
+
+    	def gocardless_payment?
+    		payment = Payment.find(params[:id])
+    		redirect_to member_url(params[:member_id]), notice: "Only payments which aren't gocardless can be removed" unless payment.go_cardless_reference.nil?
+    	end
+		
 end

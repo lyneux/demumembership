@@ -33,11 +33,13 @@ class Member < ActiveRecord::Base
   end
 
   def activate
+    puts 'Activating member:' + id.to_s
     self.membership_status = MembershipStatus.find_by_status(MembershipStatus::LIVE)
     self.save
   end
 
   def expire
+    puts 'Expiring member:' + id.to_s
     self.membership_status = MembershipStatus.find_by_status(MembershipStatus::EXPIRED)
     self.save
   end
@@ -92,6 +94,19 @@ class Member < ActiveRecord::Base
       payment.payable.destroy
     end
     puts "Entitlement period removed from payment with id: " + payment.id.to_s
+    recalculate_status
+  end
+
+  def recalculate_status
+    expire_member = true
+    for entitlement in entitlement_periods
+      expire_member = false if entitlement.end_date > Date.today
+    end
+    if expire_member
+      expire
+    else
+      activate
+    end
   end
 
   # Either works out the end date based on the current entitlement period or

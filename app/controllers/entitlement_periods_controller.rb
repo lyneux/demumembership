@@ -30,7 +30,8 @@ class EntitlementPeriodsController < ApplicationController
 		@payment.member = @member
 
 		@entitlement_period.save
-		
+		@member.recalculate_status
+
 		if @entitlement_period.errors.any?
 			render 'new'
 		else
@@ -44,6 +45,7 @@ class EntitlementPeriodsController < ApplicationController
 		entitlement_period = EntitlementPeriod.find(params[:id])
 		entitlement_period.destroy
 		@member = Member.find(params[:member_id])
+		@member.recalculate_status
 		redirect_to member_path(@member), notice: "Latest membership period removed"
 	end
 

@@ -31,6 +31,7 @@ Demumembership::Application.routes.draw do
 
   resources :members do
     resources :entitlement_periods
+    resources :payments, only: [:destroy]
     resources :go_cardless_payment_methods, only: [:new]
     get 'go_cardless_payment_methods/create'
   end
