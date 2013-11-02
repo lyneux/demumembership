@@ -3,8 +3,6 @@ class EntitlementPeriodsController < ApplicationController
 	before_action :signed_in_member
 	before_action :member_admin
 	before_action :last_entitlement, only: [:destroy]
-
-	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
 	
 	def new
 		@member = Member.find(params[:member_id])

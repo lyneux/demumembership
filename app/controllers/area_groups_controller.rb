@@ -3,8 +3,6 @@ class AreaGroupsController < ApplicationController
 	before_action :signed_in_member
 	before_action :area_group_admin,   only: [:edit, :update, :new, :create, :destroy]
 
-	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
-
 	def new
 		@area_group = AreaGroup.new()
 		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }

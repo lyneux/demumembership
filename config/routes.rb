@@ -1,11 +1,13 @@
 Demumembership::Application.routes.draw do
   
+  ComfortableMexicanSofa::Routing.admin :path => '/admin'
+
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root to: 'welcome#index'
+  #root to: 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -77,4 +79,7 @@ Demumembership::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  # Make sure this routeset is defined last
+  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
 end

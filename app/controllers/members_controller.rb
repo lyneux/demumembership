@@ -1,10 +1,10 @@
 class MembersController < ApplicationController
 
-	before_action :signed_in_member, only: [:edit, :update, :show]
-	before_action :correct_member,   only: [:edit, :update, :show]
-	before_action :member_admin,   	 only: [:new, :index, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
-
-	http_basic_authenticate_with name: "demu", password: "Ca5e5h0w"
+	before_action :signed_in_member
+	before_action :list,                      only: [:index]
+	before_action :own_record_or_admin_view,  only: [:show]
+	before_action :own_record_or_admin_edit,  only: [:edit, :update]
+	before_action :manage,   	              only: [:new, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
 
 	def new
 		@member = Member.new(:date_added => Date.today)
@@ -164,12 +164,21 @@ class MembersController < ApplicationController
       		redirect_to signin_url, notice: "Please sign in." unless signed_in?
     	end
 
-    	def correct_member
+    	def own_record_or_admin_view
+      		@member = Member.find(params[:id])
+      		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (current_member?(@member) || member_admin? || area_group_admin?)
+    	end
+
+    	def own_record_or_admin_edit
       		@member = Member.find(params[:id])
       		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (current_member?(@member) || member_admin?)
     	end
 
-    	def member_admin
+    	def list
+    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (member_admin? || area_group_admin?)
+    	end
+
+    	def manage
     		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless member_admin?
     	end
 	
