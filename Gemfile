@@ -5,7 +5,7 @@ gem 'rails', '4.0.0'
 
 # Use mysql as the database for Active Record
 group :development do
-	gem 'mysql2'
+	gem 'pg', '0.15.1'
 end
 
 group :production do
@@ -59,3 +59,4 @@ gem 'country_select'
 gem 'gocardless'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'comfortable_mexican_sofa'
+gem 'mysql2'
