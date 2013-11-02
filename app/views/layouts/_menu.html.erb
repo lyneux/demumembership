@@ -3,20 +3,22 @@
 
     <!-- CMS Menus -->
     <% @cms_site = Cms::Site.find_by_id('1') %>
-    <% @cms_site.pages.root.children.published.each do |page| %>
+    <% unless @cms_site.nil?  %>
+      <% @cms_site.pages.root.children.published.each do |page| %>
 
-      <% unless page.children_count == 0 %>
-      <% puts page.to_yaml %>
-        <li class="dropdown">
-          <a href="<%= page.full_path %>" class="dropdown-toggle" data-toggle="dropdown"><%= page.label %> <strong class="caret"></strong></a>
-          <ul class="dropdown-menu">
-            <% page.children.published.each do |subpage| %>
-              <li><%= link_to subpage.label, subpage.full_path %></li>
-            <% end %>
-          </ul>
-        </li>
-      <% else %>
-        <li><%= link_to page.label, page.full_path %></li>
+        <% unless page.children_count == 0 %>
+        <% puts page.to_yaml %>
+          <li class="dropdown">
+            <a href="<%= page.full_path %>" class="dropdown-toggle" data-toggle="dropdown"><%= page.label %> <strong class="caret"></strong></a>
+            <ul class="dropdown-menu">
+              <% page.children.published.each do |subpage| %>
+                <li><%= link_to subpage.label, subpage.full_path %></li>
+              <% end %>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to page.label, page.full_path %></li>
+        <% end %>
       <% end %>
     <% end %>
 
