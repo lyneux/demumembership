@@ -27,3 +27,4 @@ doc/
 .idea
 .secret
 public/system/*
+db/cms_fixtures/*
