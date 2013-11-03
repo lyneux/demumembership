@@ -25,9 +25,4 @@ task :update_passwords => :environment do
     end
   end
 
-  results = client.query("SELECT passwd FROM smf_members WHERE memberName = 'lyneux'")
-  results.each(:as => :hash) do |row| 
-    puts row["passwd"] 
-  end
-
 end
