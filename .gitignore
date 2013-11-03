@@ -28,3 +28,4 @@ doc/
 .secret
 public/system/*
 db/cms_fixtures/*
+config/database.yml.old.yml
