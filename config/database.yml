@@ -1,6 +1,6 @@
-sqlite: &sqlite
-  adapter: sqlite3
-  database: db/<%= Rails.env %>.sqlite3
+#sqlite: &sqlite
+#  adapter: sqlite3
+#  database: db/<%= Rails.env %>.sqlite3
 
 mysql: &mysql
   adapter: mysql2
@@ -24,13 +24,25 @@ defaults: &defaults
   pool: 5
   timeout: 5000
   encoding: utf8
-  <<: *<%= ENV['RAILS_DB'] || "sqlite" %>
+  <<: *<%= ENV['RAILS_DB'] || "mysql" %>
 
-development:
-  <<: *defaults
+#development:
+#  <<: *defaults
 
 test: &test
   <<: *defaults
 
 production:
   <<: *defaults
+
+################################
+# NON RED-HAT STUFF BELOW HERE #
+################################
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: demumembership_development
+  pool: 5
+  username: root
+  password:
