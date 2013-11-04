@@ -26,9 +26,30 @@ if [ -z "$RAILS_DB" ]; then
   echo 1>&2
   exit 5
 else
-  set_env_var 'RAILS_DB' $RAILS_DB $OPENSHIFT_HOMEDIR/.env/user_vars
+  if ! [ "$(type -t set_env_var)" == "function" ]; then
+    set_env_var 'RAILS_DB' $RAILS_DB $OPENSHIFT_HOMEDIR/.env/user_vars
+  fi
 fi
 
 pushd ${OPENSHIFT_REPO_DIR} > /dev/null
 bundle exec rake db:migrate RAILS_ENV="production"
 popd > /dev/null
+
+#--------------#
+# Added by Guy #
+#--------------#
+STORED_ASSETS="${OPENSHIFT_DATA_DIR}/cms-assets" LIVE_ASSETS="${OPENSHIFT_REPO_DIR}/public/cms-assets"
+
+# Ensure our stored assets directory exists
+if [ ! -d "${STORED_ASSETS}" ]; then
+echo " Creating permanent assets directory"
+mkdir "${STORED_ASSETS}"
+fi
+
+# Create symlink to stored assets unless we're uploading our own assets
+if [ -d "${LIVE_ASSETS}" ]; then
+echo " WARNING: Assets included in git repository, not using stored assets"
+else
+echo " Restoring stored assets"
+ln -sf "${STORED_ASSETS}" "${LIVE_ASSETS}"
+fi
