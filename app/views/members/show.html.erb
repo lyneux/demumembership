@@ -1,102 +1,177 @@
 
-<div class="well well-small">
-  <div class="row-fluid">
-    <div class="span4">
-      
-      <p>
 
-        <h2>
-          <%= @member.forename %> <%= @member.surname %><br/>
-          <%= @member.membership_number %><br/>
-          <%= link_to "Edit Member Details", edit_member_path(@member), class: "btn btn-small btn-primary"  %>
-        </h2>
+<div class="row" style="margin-top: 20px;" >
 
-        Date Of Birth:
-        <strong><%= @member.date_of_birth %></strong><br/>
+  <div class="col-sm-4">
+    <div class="well well-small" style="padding-top: 0px">
+      <h2>
+        <%= @member.forename %> <%= @member.surname %>
+        <%= @member.membership_number %><br/>
+      </h2>
 
-        Date Added:
-        <strong><%= @member.date_added %></strong><br/>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">Date Of Birth:</div>
+        <div class="col-xs-6 col-md-6"><strong><%= @member.date_of_birth %></strong></div>
+      </div>
 
-        Member Category:
-        <strong><%= @member.member_category.description %></strong><br/>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">Date Added:</div>
+        <div class="col-xs-6 col-md-6"><strong><%= @member.date_added %></strong></div>
+      </div>
 
-        Membership Status:
-        <span class="label label-<%= membership_state_label(@member.membership_status.status) %>"><%= @member.membership_status.status %></span><br/>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">Member Category:</div>
+        <div class="col-xs-6 col-md-6"><strong><%= @member.member_category.description %></strong></div>
+      </div>
 
-        Area Group:
-        <strong><%= @member.area_group %></strong>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">Membership Status:</div>
+        <div class="col-xs-6 col-md-6"><span class="label label-<%= membership_state_label(@member.membership_status.status) %>"><%= @member.membership_status.status %></span></div>
+      </div>
 
-        <% if member_admin? %>
-          <br/>Notes:
-          <strong><%= @member.notes %></strong>
-        <% end %>
-      </p>
-      
-    </div>
-  
-    <div class="span4">
-      <h3>Contact Details</h3>
-      <%= render @member.contact_details %>
-    </div>
+      <div class="row">
+        <div class="col-xs-6 col-md-6">Area Group:</div>
+        <div class="col-xs-6 col-md-6"><strong><%= @member.area_group %></strong></div>
+      </div>
 
-    <div class="span4">
-      <%= render @member.forum_details %>
-      <%= render "source_details" %>
-
-      <h3>Subscription</h3>
-      <% if @member.subscription.nil? %>
-        No subscription registered
-      <% else %>
-        <%= render @member.subscription %>
+      <% if member_admin? %>
+        <div class="row">
+          <div class="col-xs-6 col-md-6">Notes:</div>
+          <div class="col-xs-6 col-md-6"><strong><%= @member.notes %></strong></div>
+        </div>
       <% end %>
+
+      <div class="row" style="padding-top: 20px">
+        <div class="col-xs-6 col-md-6">
+          <%= link_to "Edit Member Details", edit_member_path(@member), class: "btn btn-sm btn-primary"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Contact Details</h3>
+      </div>
+      <div class="panel-body">
+        <%= render @member.contact_details %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Forum Details</h3>
+      </div>
+      <div class="panel-body">
+        <% if @member.forum_details.nil? %>
+          No forum details registered
+        <% else %>
+          <%= render @member.forum_details %>
+        <% end %>
+      </div>
     </div>
 
+    <% if member_admin? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Source Details</h3>
+        </div>
+        <div class="panel-body">
+          <%= render "source_details" %>
+        </div>
+      </div>
+    <% end %>
 
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Subscription Details</h3>
+      </div>
+      <div class="panel-body">
+        <% if @member.subscription.nil? %>
+          No subscription registered
+        <% else %>
+          <%= render @member.subscription %>
+        <% end %>
+      </div>
+    </div>
+    
   </div>
+
+
 </div>
 
-<h3 class="panel-title">Payment History</h3>
-<table class="table">
-  <tr>
-    <th>Payment ID</th>
-    <th>Payment Date</th>
-    <th>Payment Type</th>
-    <th>Payment Currency</th>
-    <th>GoCardless Ref</th>
-    <th>Payment Status</th>
-  </tr>
-  <tr><%= render partial: @member.payments, spacer_template: "payment_ruler" %></tr>
-</table>
 
-
-<div class="row-fluid">
-
-  <div class="span6">
-    <h3>Membership Periods</h3>
-    <% if @member.entitlement_periods.nil? %>
-      No entitlement periods registered
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Payment History</h3>
+    </div>
+    <% if @member.payments.empty? %>
+      <div class="panel-body">
+        No payments registered
+      </div>
     <% else %>
-      <table class="table">
+      <table class="table" >
         <tr>
-          <th>End Date</th>
-          <th>Related Payment</th>
+          <th>Payment ID</th>
+          <th>Payment Date</th>
+          <th>Payment Type</th>
+          <th>Payment Currency</th>
+          <th>GoCardless Ref</th>
+          <th>Payment Status</th>
+          <th>Actions</th>
         </tr>
-        <tr><%= render partial: @member.entitlement_periods, spacer_template: "payment_ruler" %></tr>
+        <tr><%= render partial: @member.payments, spacer_template: "payment_ruler" %></tr>
       </table>
     <% end %>
-    <% if member_admin? %>
-      <p><%= link_to 'Add Membership Period and Payment', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %></p>
-    <% end %>
   </div>
 
-  <div class="span6">
-    <h3>Go Cardless Payment Method</h3>
-    <% if @member.go_cardless_payment_method.nil? %>
-      <p>No payment method registered</p>
-      <%= link_to 'Add Go Cardless Payment Method', new_member_go_cardless_payment_method_path(:member_id => @member.id), class: "btn btn-small btn-primary"  %>
-    <% else %>
-      <%= render @member.go_cardless_payment_method %>
-    <% end %>
-  </div>
 
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Membership Periods</h3>
+      </div>
+      <% if @member.entitlement_periods.empty? %>
+        <div class="panel-body">
+          No entitlement periods registered
+        </div>
+      <% else %>
+        <table class="table" style="margin-bottom: 0px">
+          <tr>
+            <th>End Date</th>
+            <th>Related Payment</th>
+            <th>Actions</th>
+          </tr>
+          <tr><%= render partial: @member.entitlement_periods, spacer_template: "payment_ruler" %></tr>
+        </table>
+      <% end %>
+      <div class="panel-body" style="padding-top: 0px">
+        <% if member_admin? %>
+          <%= link_to 'Add Membership Period and Payment', new_member_entitlement_period_path(:member_id => @member.id), class: "btn btn-sm btn-primary"  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Go Cardless Payment Method</h3>
+      </div>
+      <div class="panel-body">
+        <% if @member.go_cardless_payment_method.nil? %>
+          <p>No payment method registered</p>
+          <%= link_to 'Add Go Cardless Payment Method', new_member_go_cardless_payment_method_path(:member_id => @member.id), class: "btn btn-sm btn-primary"  %>
+        <% else %>
+          <%= render @member.go_cardless_payment_method %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
+

@@ -1,8 +1,11 @@
 <h1>Members</h1>
 
-<p><%= link_to "Add New Member", new_member_path, class: "btn btn-large btn-primary"  %></p>
+<%= link_to "Add New Member", new_member_path, class: "btn btn-lg btn-primary pull-right"  %>
 
-<table>
+<%= alphabetical_paginate @alphaParams %>
+
+<div id="pagination_table">
+<table class="table table-condensed">
   <tr>
     <th>Number</th>
     <th>Forename</th>
@@ -11,6 +14,7 @@
     <th>Paid Up To</th>
     <th>Subscription Type</th>
     <th>Area Group</th>
+    <th>Actions</th>
   </tr>
 
   <% @members.each do |member| %>
@@ -22,9 +26,12 @@
       <td><%= member.paid_up_to_date %></td>
       <td><%= member.subscription.subscription_renewal_type %></td>
       <td><%= member.area_group %></td>
-      <td><%= link_to 'Show', member_path(member), class: "btn btn-small btn-primary" %></td>
-      <td><%= link_to 'Edit', edit_member_path(member),class: "btn btn-small" %></td>
-      <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-small" %></td>
+      <td>
+        <%= link_to 'Show', member_path(member), class: "btn btn-xs btn-primary" %>
+        <%= link_to 'Edit', edit_member_path(member),class: "btn btn-xs btn-default" %>
+        <%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-xs btn-default" %>
+      </td>
     </tr>
   <% end %>
 </table>
+</div>

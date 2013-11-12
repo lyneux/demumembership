@@ -55,8 +55,9 @@ end
 # Custom Added by Guy #
 #######################
 # Use country_select
-gem 'country_select'
-gem 'gocardless'
-gem 'bootstrap-sass', '2.3.2.2'
-gem 'comfortable_mexican_sofa'
-gem 'mysql2'
+gem 'country_select', 			'1.2.0'
+gem 'gocardless', 			'1.8.0'
+gem 'bootstrap-sass', 			'3.0.2.1'
+gem 'comfortable_mexican_sofa', 	'1.10.3'
+gem 'mysql2', 				'0.3.13'
+gem 'alphabetical_paginate', :git => 'git://github.com/lyneux/alphabetical_paginate.git'

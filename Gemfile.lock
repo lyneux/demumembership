@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/lyneux/alphabetical_paginate.git
+  revision: c078c7d53e32e593cd3e1738e228da44d0378963
+  specs:
+    alphabetical_paginate (1.6.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -29,7 +35,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.14)
-    bootstrap-sass (2.3.2.2)
+    bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
     builder (3.1.4)
     climate_control (0.0.3)
@@ -175,14 +181,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (= 2.3.2.2)
+  alphabetical_paginate!
+  bootstrap-sass (= 3.0.2.1)
   coffee-rails (~> 4.0.0)
-  comfortable_mexican_sofa
-  country_select
-  gocardless
+  comfortable_mexican_sofa (= 1.10.3)
+  country_select (= 1.2.0)
+  gocardless (= 1.8.0)
   jbuilder (~> 1.2)
   jquery-rails
-  mysql2
+  mysql2 (= 0.3.13)
   pg (= 0.15.1)
   rails (= 4.0.0)
   rails_12factor (= 0.0.2)

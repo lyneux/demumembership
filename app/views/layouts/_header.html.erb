@@ -1,20 +1,18 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-	<div class="navbar-inner">
-  	<div class="container">
+<header>
+  <nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
 
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+        <a class="navbar-brand" href="/"> <%= image_tag "Logo_40.png" %></a>
+        <%= link_to "demu", '/', id: "logo" %>
 
-      <div class="container">
-        <a class="brand" href="/"> <%= image_tag "Logo_40.png" %></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       </div>
-		  <%= link_to "demu", '/', id: "logo" %>
-
-			<%= render 'layouts/menu' %>
-
-	  </div>
-	</div>
+      <%= render 'layouts/menu' %>
+    </div>
+  </nav>
 </header>

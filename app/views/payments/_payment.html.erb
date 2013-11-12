@@ -6,6 +6,6 @@
 <td><span class="label label-<%= state_label(payment.payment_status) %>"><%= payment.payment_status %></span></td>
 <td>
 	<% if member_admin? %>
-		<%= link_to 'Remove', [payment.member, payment], method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-small" %>
+		<%= link_to 'Remove', [payment.member, payment], method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-xs btn-default" %>
 	<% end %>
 </td>

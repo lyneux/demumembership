@@ -1,13 +1,10 @@
-<h3>Forum Details</h3>
 
-<% if forum_details.nil? %>
-  No forum details registered
-<% else %>
-  <p>
-    Forum ID:
-    <strong><%= forum_details.forum_id %></strong><br/>
+<div class="row">
+	<div class="col-xs-6">Forum ID:</div>
+	<div class="col-xs-6"><strong><%= forum_details.forum_id %></strong></div>
+</div>
+<div class="row">
+	<div class="col-xs-6">Forum Name:</div>
+	<div class="col-xs-6"><strong><%= forum_details.forum_name %></strong></div>
+</div>
 
-    Forum Name:
-    <strong><%= forum_details.forum_name %></strong>
-  </p>
-<% end %>

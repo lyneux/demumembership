@@ -100,7 +100,7 @@ task :import_members => :environment do
       #unless row['Forum ID'].to_s == ''
       forumdata = {forum_id: (row['Forum ID']), forum_name: (row['Forum Name'])}
         #forumdata[:forum_name] = row['Forum Name'] unless row['Forum Name'].to_s.delete(' ') == ''
-      foumdetails = member.build_forum_details(forumdata)
+      forumdetails = member.build_forum_details(forumdata)
       #end
 
       #Set password and role

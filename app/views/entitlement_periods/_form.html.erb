@@ -1,7 +1,7 @@
-<%= form_for([@member, @entitlement_period]) do |f| %>
+<%= form_for([@member, @entitlement_period], :html => { :class => "form-inline", :role => "form" } ) do |f| %>
 
   <% if @entitlement_period.errors.any? %>
-    <div id="errorExplanation"  class="alert alert-error">
+    <div id="errorExplanation" class="alert alert-danger" style="padding-top: 0px;">
       <h3><%= pluralize(@entitlement_period.errors.count, "error") %> prohibited this entitlement from being saved:</h3>
       <% @entitlement_period.errors.full_messages.each do |msg| %>  
         <li><%= msg %></li>
@@ -9,35 +9,35 @@
     </div>
   <% end %>
 
-  <p>
 
+  <div class="form-group" style="margin-bottom: 0px; width: 300px;" >
     <%= f.label :end_date %>
-    <%= date_select :entitlement_period, :end_date %></br>
-    This is calculated but can be over-ridden.
-  </p>
+    <%= f.date_select :end_date, {:use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control", :style => "max-width: 65px; margin-right: 5px"} %>
+  </div>
+  <p>This is calculated but can be over-ridden.</p>
 
   <h2>Payment </h2>
-  Please only create payments that you know are already complete (i.e. collected). The system will create the payment in the COMPLETE state.
+  <p>Please only create payments that you know are already complete (i.e. collected). The system will create the payment in the COMPLETE state.</p>
   <%= fields_for @payment do |p| %>
 
-    <p>
-      <%= p.label :payment_date %>
-      <%= date_select :payment, :payment_date %>
-    </p>
+    <div class="form-group" style="margin-bottom: 0px; width: 250px;" >
+      <%= p.label :payment_date %></br>
+      <%= p.date_select :payment_date, {:use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control", :style => "max-width: 65px; margin-right: 5px"} %>
+    </div>
 
-    <p>
+    <div class="form-group" >
       <%= p.label :amount_in_pence %>
-      <%= p.text_field :amount_in_pence %>
-    </p>
+      <%= p.text_field :amount_in_pence, class: "form-control", style: "max-width: 220px" %>
+    </div>
 
-    <p>
+    <div class="form-group" >
       <%= p.label :payment_type %>
-      <%= collection_select(:payment, :payment_type_id, PaymentType.all, :id, :description) %>
-    </p>
+      <%= p.collection_select :payment_type_id, PaymentType.all, :id, :description, {}, {:class => "form-control"} %>
+    </div>
 
   <% end %>
 
-  <p>
-    <%= f.submit class: "btn btn-small btn-primary"%>
-  </p>
+  <p style="margin-top: 20px">
+    <%= f.submit class: "btn btn-sm btn-primary"%>
+  </p>  
 <% end %>

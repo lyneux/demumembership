@@ -1,5 +1,5 @@
-<div class="nav-collapse">
-  <ul class="nav pull-right">
+<div class="navbar-collapse collapse" id="my-navbar">
+  <ul class="nav navbar-nav pull-right">
 
     <!-- CMS Menus -->
     <% @cms_site = Cms::Site.find_by_id('1') %>
@@ -36,13 +36,13 @@
       <li class="dropdown" id="menuLogin">
         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login <strong class="caret"></strong></a>
         <div class="dropdown-menu" style="padding:15px;">
-          <%= form_for(:session, url: sessions_path) do |f| %>
+          <%= form_for(:session, url: sessions_path, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
 
-            <%= f.text_field :login, placeholder: "Username"  %>
-            <%= f.password_field :password, placeholder: "Password" %>
-            <%= f.hidden_field :fromnav, :value => "fromnav" %></br>
+            <p><%= f.text_field :login, placeholder: "Username", class: "form-control" %></p>
+            <p><%= f.password_field :password, placeholder: "Password", class: "form-control" %></p>
+            <%= f.hidden_field :fromnav, :value => "fromnav" %>
 
-            <%= f.submit "Login", class: "btn-primary" %>
+            <%= f.submit "Login", class: "btn btn-primary" %>
           <% end %>
 
         </div>
@@ -59,22 +59,22 @@
           <% if member_admin? %>
             <li><%= link_to "Create Member", new_member_url() %></li>
             <li class="divider"></li>
-            <li class="nav-header">Renewal Process</li>
+            <li class="dropdown-header">Renewal Process</li>
             <li><%= link_to "View Upcoming Renewals", members_by_days_to_expiry_path('30') %></li>
             <li class="divider"></li>
-            <li class="nav-header">Scheduled Jobs</li>
+            <li class="dropdown-header">Scheduled Jobs</li>
             <li><%= link_to "Expire Members", members_expire_path %></li>
             <li><%= link_to "Create DD Payments", payments_create_dd_payments_path %></li>
           <% end %>
 
           <% if area_group_admin? %>
-            <li class="nav-header">Area Group Admin</li>
+            <li class="dropdown-header">Area Group Admin</li>
             <li><%= link_to "Area Groups", controller: "/area_groups" %></li>
           <% end %>
           
           <% if member_admin? %>
             <li class="divider"></li>
-            <li class="nav-header">Content Management</li>
+            <li class="dropdown-header">Content Management</li>
             <li><%= link_to "CMS", admin_cms_path %></li>
           <% end %>
 

@@ -1,4 +1,4 @@
-class MembersController < ApplicationController
+	class MembersController < ApplicationController
 
 	before_action :signed_in_member
 	before_action :list,                      only: [:index]
@@ -56,7 +56,7 @@ class MembersController < ApplicationController
 	end
 
 	def index
-  		@members = Member.all
+		@members, @alphaParams = Member.all.alpha_paginate(params[:letter]){|member| member.surname}
 	end
 
 	def edit

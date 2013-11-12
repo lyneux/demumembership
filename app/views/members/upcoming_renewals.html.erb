@@ -2,17 +2,18 @@
 
 <p>The following <%= @members.count %> members entitlements will expire in <%= @number_of_days_until_expiry %> days time.</p>
 
-<p><%= link_to "30 days", members_by_days_to_expiry_path('30'), class: "btn btn-large btn-primary" %>
-<%= link_to "60 days", members_by_days_to_expiry_path('60'), class: "btn btn-large btn-primary"  %>
-<%= link_to "90 days", members_by_days_to_expiry_path('90'), class: "btn btn-large btn-primary"  %></p>
+<p><%= link_to "30 days", members_by_days_to_expiry_path('30'), class: "btn btn-primary" %>
+<%= link_to "60 days", members_by_days_to_expiry_path('60'), class: "btn btn-primary"  %>
+<%= link_to "90 days", members_by_days_to_expiry_path('90'), class: "btn btn-primary"  %></p>
 
-<table>
+<table class="table table-condensed">
   <tr>
     <th>Number</th>
     <th>Forename</th>
     <th>Surname</th>
     <th>Paid Up To</th>
     <th>Area Group</th>
+    <th>Actions</th>
   </tr>
 
   <% @members.each do |member| %>
@@ -22,9 +23,10 @@
       <td><%= member.surname %></td>
       <td><%= member.paid_up_to_date %></td>
       <td><%= member.area_group %></td>
-      <td><%= link_to 'Show', member_path(member), class: "btn btn-small btn-primary"   %></td>
-      <td><%= link_to 'Edit', edit_member_path(member), class: "btn btn-small" %></td>
-      <td><%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-small"   %></td>
+      <td>
+        <%= link_to 'Show', member_path(member), class: "btn btn-xs btn-primary"   %>
+        <%= link_to 'Edit', edit_member_path(member), class: "btn btn-xs btn-default" %>
+        <%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-default"   %></td>
     </tr>
   <% end %>
 </table>

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       		end
 		else
 			# Create an error message and re-render the signin form.
-			flash.now[:error] = 'Invalid email/password combination' # Not quite right!
+			flash.now[:danger] = 'Invalid email/password combination' # Not quite right!
       		render 'new'
 		end
 	end

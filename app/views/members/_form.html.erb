@@ -1,6 +1,6 @@
-<%= form_for @member do |f| %>
+<%= form_for @member, :html => { :class => "form-horizontal", :role => "form" } do |f| %>
   <% if @member.errors.any? %>
-  <div id="errorExplanation" class="alert alert-error">
+  <div id="errorExplanation" class="alert alert-danger" style="padding-top: 0px;">
     <h3><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h3>
     <ul>
     <% @member.errors.full_messages.each do |msg| %>
@@ -10,138 +10,169 @@
   </div>
   <% end %>
 
-  <h2>Member Details</h2>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
 
-  <% if member_admin? %>
-    <p>
-      <%= f.label :membership_number %> (Current maximum = <%= @max_member_id %>)<br>
-      <%= f.text_field :membership_number %>
-    </p>
-  <% end %>
-  
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Personal Details</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label :forename, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.text_field :forename, class: "form-control" %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :surname, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.text_field :surname, class: "form-control" %></div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0px">
+            <%= f.label :date_of_birth, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8">
+              <%= f.date_select :date_of_birth, {:start_year => 1920, :include_blank => true, :use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control col-xs-4", :style => "max-width: 65px; margin-right: 5px"}  %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Admin Details</h3>
+        </div>
+        <div class="panel-body">   
+          <div class="form-group">
+            <%= f.label :membership_number, class: "col-xs-4 control-label" %>
+            <div class="col-xs-4"><%= f.text_field :membership_number, class: "form-control" %></div>
+            <div class="col-xs-4">
+              <%= f.label "(current maximum: " + @max_member_id.to_s + ")", class: "control-label" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :date_added, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.date_select :date_added, {:start_year => 1994, :include_blank => true, :use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control col-xs-4", :style => "max-width: 65px; margin-right: 5px"}  %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :member_category, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.collection_select :member_category_id, MemberCategory.all, :id, :description, {}, :class => "form-control" %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :area_group, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.collection_select :area_group_id, AreaGroup.all, :id, :description, {:include_blank => true}, :class => "form-control" %></div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0px">
+            <%= f.label :notes, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.text_area :notes, class: "form-control" %></div>
+          </div>      
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+
+      <% if member_admin? %>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Contact Details</h3>
+          </div>
+          <div class="panel-body">
+            <%= fields_for @contact_details do |c| %>
+              <div class="form-group">
+                <%= c.label :address_line_1, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :address_line_1, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :address_line_2, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :address_line_2, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :address_line_3, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :address_line_3, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :town, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :town, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :county, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :county, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :postcode, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :postcode, class: "form-control" %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :country, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.country_select :country, ["United Kingdom"], {}, {:class => "form-control"} %></div>
+              </div>
+              <div class="form-group">
+                <%= c.label :telephone, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :telephone, class: "form-control" %></div>
+              </div>
+              <div class="form-group" style="margin-bottom: 0px">
+                <%= c.label :email, class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= c.text_field :email, class: "form-control" %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+
+      <% if member_admin? %>
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Source Details</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <%= f.label :source_channel, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.collection_select :source_channel_id, SourceChannel.all, :id, :channel, {:include_blank => true}, :class => "form-control" %></div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0px">
+              <%= f.label :signup_source, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.text_field :signup_source, class: "form-control" %></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col-xs-12 col-md-6">
+
+      <% if member_admin? %>
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Forum Details</h3>
+          </div>
+          <div class="panel-body">
+            <%= fields_for @forum_details do |fd| %>
+              <div class="form-group">
+                <%= fd.label :forum_id, "Forum ID", class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= fd.text_field :forum_id, class: "form-control" %></div>
+              </div>
+              <div class="form-group" style="margin-bottom: 0px">
+                <%= fd.label :forum_name,class: "col-xs-4 control-label" %>
+                <div class="col-xs-8"><%= fd.text_field :forum_name, class: "form-control" %></div>
+              </div>
+              <%= fd.hidden_field :forum_password %>
+              <%= fd.hidden_field :remember_token %>
+            <% end %>
+          </div>
+        </div>
+      <% end %><!-- memberadmin? -->
+
+    </div>
+  </div>
+
   <p>
-    <%= f.label :forename %>
-    <%= f.text_field :forename %>
-  </p>
-
-  <p>
-    <%= f.label :surname %>
-    <%= f.text_field :surname %>
-  </p>
-
-  <p>
-    <%= f.label :date_of_birth %>
-    <%= date_select :member, :date_of_birth, :start_year => 1920, :include_blank => true %>
-  </p>
-
-  <% if member_admin? %>
-
-    <p>
-      <%= f.label :date_added %>
-      <%= date_select :member, :date_added, :include_blank => true %>
-    </p>
-
-    <p>
-      <%= f.label :member_category %>
-      <%= collection_select(:member, :member_category_id, MemberCategory.all, :id, :description) %>
-    </p>
-
-    <p>
-      <%= f.label :area_group %>
-      <%= collection_select(:member, :area_group_id, AreaGroup.all, :id, :description, :include_blank => true) %>
-    </p>
-
-    <p>
-      <%= f.label :notes %>
-      <%= f.text_area :notes %>
-    </p>
-
-    <h2>Source Details</h2>
-    <p>
-      <%= f.label :source_channel %>
-      <%= collection_select(:member, :source_channel_id, SourceChannel.all, :id, :channel, :include_blank => true ) %>
-    </p>
-
-    <p>
-      <%= f.label :signup_source %>
-      <%= f.text_field :signup_source %>
-    </p>
-
-  <% end %>
-
-  <h2>Contact Details</h2>
-  <%= fields_for @contact_details do |c| %>
-
-    <p>
-      <%= c.label :address_line_1 %>
-      <%= c.text_field :address_line_1 %>
-    </p>
-
-    <p>
-      <%= c.label :address_line_2 %>
-      <%= c.text_field :address_line_2 %>
-    </p>
-
-    <p>
-      <%= c.label :address_line_3 %>
-      <%= c.text_field :address_line_3 %>
-    </p>
-
-    <p>
-      <%= c.label :town %>
-      <%= c.text_field :town %>
-    </p>
-
-    <p>
-      <%= c.label :county %>
-      <%= c.text_field :county %>
-    </p>
-
-    <p>
-      <%= c.label :postcode %>
-      <%= c.text_field :postcode %>
-    </p>
-
-    <p>
-      <%= c.label :country %>
-      
-      <%= c.country_select :country, ["United Kingdom"] %>
-    </p>
-
-    <p>
-      <%= c.label :telephone %>
-      <%= c.text_field :telephone %>
-    </p>
-
-    <p>
-      <%= c.label :email %>
-      <%= c.text_field :email %>
-    </p>
-
-  <% end %>
-
-  <% if member_admin? %>
-    <h2>Forum Details</h2>
-    <%= fields_for @forum_details do |fd| %>
-
-      <p>
-        <%= fd.label :forum_id, "Forum ID" %>
-        <%= fd.text_field :forum_id %>
-      </p>
-
-      <p>
-        <%= fd.label :forum_name %>
-        <%= fd.text_field :forum_name %>
-      </p>
-      
-      <%= fd.hidden_field :forum_password %>
-      <%= fd.hidden_field :remember_token %>
-
-    <% end %>
-  <% end %>
-
-  <p>
-    <%= f.submit class:  "btn btn-small btn-primary" %>
+    <%= f.submit class:  "btn btn-sm btn-primary" %>
+    <%= link_to "Cancel", member_path(@member), class: "btn btn-sm btn-default" %>
   </p>
 <% end %>
 
