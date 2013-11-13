@@ -33,7 +33,7 @@ class EntitlementPeriodsController < ApplicationController
 		if @entitlement_period.errors.any?
 			render 'new'
 		else
-			redirect_to member_path(@member)
+			redirect_to member_path(@member), :flash => {:success => "Added membership period and payment"}
 		end
 
 	end
@@ -44,7 +44,7 @@ class EntitlementPeriodsController < ApplicationController
 		entitlement_period.destroy
 		@member = Member.find(params[:member_id])
 		@member.recalculate_status
-		redirect_to member_path(@member), notice: "Latest membership period removed"
+		redirect_to member_path(@member), :flash => {:success => "Latest membership period removed"}
 	end
 
 	private

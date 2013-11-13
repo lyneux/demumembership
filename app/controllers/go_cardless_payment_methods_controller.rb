@@ -9,7 +9,7 @@ class GoCardlessPaymentMethodsController < ApplicationController
 			:interval_length => 1,
 			:name            => "DEMU Subscription",
 			:state           => @member.id,
-			:redirect_uri    => URI.join(root_url, member_go_cardless_payment_methods_create_path(@member)).to_s,
+			:redirect_uri    => "http://" + request.host_with_port + member_go_cardless_payment_methods_create_path(@member),
 			:user => {
 				:first_name => @member.forename,
 				:last_name => @member.surname,

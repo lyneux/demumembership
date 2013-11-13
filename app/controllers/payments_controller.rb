@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
 			if member.subscription.subscription_renewal_type == direct_debit_renewal_type
 				
 				# Only request payments if there isn't already a pending one:
-				unless member.has_pending_payment
+				unless member.has_pending_payment || member.go_cardless_payment_method.nil?
 					puts "Using Go Cardless Pre-Auth=" + member.go_cardless_payment_method.go_cardless_reference
 					pre_auth = GoCardless::PreAuthorization.find(member.go_cardless_payment_method.go_cardless_reference)
 					bill = pre_auth.create_bill(:name => member.member_category.description, :amount => (member.member_category.price_in_pence_per_year.to_f/100), :charge_customer_at => payment_date)
@@ -94,7 +94,7 @@ class PaymentsController < ApplicationController
 		payment = Payment.find(params[:id])
 		member = payment.member
 		payment.destroy
-		redirect_to member_path(member), notice: "Payment removed"
+		redirect_to member_path(member), :flash => {:success => "Payment removed"}
 	end
 
 	private
@@ -103,12 +103,12 @@ class PaymentsController < ApplicationController
     	end
 
 		def member_admin
-    		redirect_to member_url(params[:member_id]), notice: "You are not allowed to perform that operation" unless member_admin?
+    		redirect_to member_url(params[:member_id]), :flash => "You are not allowed to perform that operation" unless member_admin?
     	end
 
     	def gocardless_payment?
     		payment = Payment.find(params[:id])
-    		redirect_to member_url(params[:member_id]), notice: "Only payments which aren't gocardless can be removed" unless payment.go_cardless_reference.nil?
+    		redirect_to member_url(params[:member_id]), :flash => {:danger => "Only payments which aren't gocardless can be removed"} unless payment.go_cardless_reference.nil?
     	end
 		
 end
