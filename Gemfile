@@ -61,3 +61,8 @@ gem 'bootstrap-sass', 			'3.0.2.1'
 gem 'comfortable_mexican_sofa', 	'1.10.3'
 gem 'mysql2', 				'0.3.13'
 gem 'alphabetical_paginate', :git => 'git://github.com/lyneux/alphabetical_paginate.git'
+
+# The following are required for Google maps integration:
+gem 'json'
+gem 'rest-client'
+gem 'ruby_kml'
