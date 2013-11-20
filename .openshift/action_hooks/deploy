@@ -38,18 +38,24 @@ popd > /dev/null
 #--------------#
 # Added by Guy #
 #--------------#
+
+#----CMS ASSETS---#
 STORED_ASSETS="${OPENSHIFT_DATA_DIR}/cms-assets" LIVE_ASSETS="${OPENSHIFT_REPO_DIR}/public/cms-assets"
 
 # Ensure our stored assets directory exists
 if [ ! -d "${STORED_ASSETS}" ]; then
-echo " Creating permanent assets directory"
+echo " Creating permanent cms-assets directory"
 mkdir "${STORED_ASSETS}"
 fi
 
 # Create symlink to stored assets unless we're uploading our own assets
 if [ -d "${LIVE_ASSETS}" ]; then
-echo " WARNING: Assets included in git repository, not using stored assets"
+echo " WARNING: CMS Assets included in git repository, not using stored cms-assets"
 else
-echo " Restoring stored assets"
+echo " Restoring stored cms-assets"
 ln -sf "${STORED_ASSETS}" "${LIVE_ASSETS}"
 fi
+
+#----PRECOMPILE PRODUCTION ASSETS---#
+cd $OPENSHIFT_REPO_DIR
+RAILS_ENV=production bundle exec rake assets:precompile
