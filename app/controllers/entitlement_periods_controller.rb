@@ -57,16 +57,16 @@ class EntitlementPeriodsController < ApplicationController
 		end
 
 		def signed_in_member
-      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      		redirect_to signin_url, :flash => {:danger => "Please sign in."} unless signed_in?
     	end
 
 		def member_admin
-    		redirect_to member_url(params[:member_id]), notice: "You are not allowed to perform that operation" unless member_admin?
+    		redirect_to member_url(params[:member_id]), :flash => {:danger => "You are not allowed to perform that operation"} unless member_admin?
     	end
 
     	def last_entitlement
     		entitlement_period = EntitlementPeriod.find(params[:id])
-    		redirect_to member_url(params[:member_id]), notice: "Only the last entitlement can be removed" unless entitlement_period.last
+    		redirect_to member_url(params[:member_id]), :flash => {:danger => "Only the last entitlement can be removed"} unless entitlement_period.last
     	end
 
 

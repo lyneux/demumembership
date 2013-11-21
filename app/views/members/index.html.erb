@@ -24,7 +24,7 @@
       <td><%= member.surname %></td>
       <td><span class="label label-<%= membership_state_label(member.membership_status) %>"><%= member.membership_status %></span></td>
       <td><%= member.paid_up_to_date %></td>
-      <td><%= member.subscription.subscription_renewal_type %></td>
+      <td><%= member.subscription.subscription_renewal_type unless member.subscription.nil? %></td>
       <td><%= member.area_group %></td>
       <td>
         <%= link_to 'Show', member_path(member), class: "btn btn-xs btn-primary" %>

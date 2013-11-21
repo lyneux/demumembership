@@ -3,13 +3,16 @@ class GoCardlessPaymentMethodsController < ApplicationController
 	def new
 		@member = Member.find(params[:member_id])
 
+		redirect_uri = "http://" + request.host_with_port + member_go_cardless_payment_methods_create_path(@member)
+		puts "Redirecting to gocardless with redirect URI back set to: " + redirect_uri
+
 		url_params = {
 			:amount          => 5000,
 			:interval_unit   => "month",
 			:interval_length => 1,
 			:name            => "DEMU Subscription",
 			:state           => @member.id,
-			:redirect_uri    => "http://" + request.host_with_port + member_go_cardless_payment_methods_create_path(@member),
+			:redirect_uri    => redirect_uri,
 			:user => {
 				:first_name => @member.forename,
 				:last_name => @member.surname,

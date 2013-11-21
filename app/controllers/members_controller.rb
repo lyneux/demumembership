@@ -44,7 +44,7 @@
 		puts "Finished"
 
 		if @member.errors.none?
-			redirect_to @member
+			redirect_to @member, :flash => {:success => "Member created"}
 		else
 			render 'new'
 		end
@@ -108,7 +108,7 @@
 		@member = Member.find(params[:id])
 		@member.destroy
 
-		redirect_to members_path
+		redirect_to members_path, :flash => {:success => "Member removed"}
 	end
 
 	# NON-STANDARD METHODS
@@ -161,25 +161,25 @@
 		end
 
 		def signed_in_member
-      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      		redirect_to signin_url, :flash => {:danger => "Please sign in."} unless signed_in?
     	end
 
     	def own_record_or_admin_view
       		@member = Member.find(params[:id])
-      		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (current_member?(@member) || member_admin? || area_group_admin?)
+      		redirect_to member_url(@current_member), :flash => {:danger => "You are not allowed to perform that operation"} unless (current_member?(@member) || member_admin? || area_group_admin?)
     	end
 
     	def own_record_or_admin_edit
       		@member = Member.find(params[:id])
-      		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (current_member?(@member) || member_admin?)
+      		redirect_to member_url(@member), :flash => {:danger => "You are not allowed to perform that operation"}  unless (current_member?(@member) || member_admin?)
     	end
 
     	def list
-    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless (member_admin? || area_group_admin?)
+    		redirect_to member_url(@current_member), :flash => {:danger => "You are not allowed to perform that operation"} unless (member_admin? || area_group_admin?)
     	end
 
     	def manage
-    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless member_admin?
+    		redirect_to member_url(@member), :flash => {:danger => "You are not allowed to perform that operation"} unless member_admin?
     	end
 	
 end

@@ -14,7 +14,7 @@ class AreaGroupsController < ApplicationController
 		@area_group.save
 
 		if @area_group.errors.none?
-			redirect_to @area_group
+			redirect_to @area_group, :flash => {:success => "Area group created"}
 		else
 			render 'new'
 		end
@@ -48,7 +48,7 @@ class AreaGroupsController < ApplicationController
 	def destroy
 		@area_group = AreaGroup.find(params[:id])
 		@area_group.destroy
-		redirect_to area_groups_path
+		redirect_to area_groups_path, :flash => {:success => "Area group removed"}
 	end
 
 	private
@@ -57,12 +57,10 @@ class AreaGroupsController < ApplicationController
 		end
 
 		def signed_in_member
-			flash[:danger] = 'Please sign in.' unless signed_in?
-      		redirect_to signin_url unless signed_in?
+      		redirect_to signin_url, :flash => {:danger => "Please sign in."} unless signed_in?
     	end
 
 		def area_group_admin
-			flash[:danger] = 'You are not allowed to perform that operation' unless area_group_admin?
-    		redirect_to area_groups_path unless area_group_admin?
+    		redirect_to area_groups_path, :flash => {:danger => "You are not allowed to perform that operation"} unless area_group_admin?
     	end
 end

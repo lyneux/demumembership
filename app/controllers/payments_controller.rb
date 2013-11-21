@@ -99,11 +99,11 @@ class PaymentsController < ApplicationController
 
 	private
 		def signed_in_member
-      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      		redirect_to signin_url, :flash => {:danger => "Please sign in."} unless signed_in?
     	end
 
 		def member_admin
-    		redirect_to member_url(params[:member_id]), :flash => "You are not allowed to perform that operation" unless member_admin?
+    		redirect_to member_url(params[:member_id]), :flash => {:danger => "You are not allowed to perform that operation"} unless member_admin?
     	end
 
     	def gocardless_payment?
