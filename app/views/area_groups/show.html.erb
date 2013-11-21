@@ -19,23 +19,28 @@
   <%= @area_group.coordinator %>
 </p>
 
-<%= link_to "Edit Area Group", edit_area_group_path(@area_group), class: "btn btn-small btn-primary"  %>
+<%= link_to "Area Groups List", area_groups_path, class: "btn btn-sm btn-default"  %>
 
-<h2>Members:</h2>
+<% if area_group_admin? %>
+  <%= link_to "Edit Area Group", edit_area_group_path(@area_group), class: "btn btn-sm btn-primary"  %>
 
-<table class="table table-condensed">
-  <tr>
-    <th>Number</th>
-    <th>Forename</th>
-    <th>Surname</th>
-  </tr>
 
-  <% @area_group.members.each do |member| %>
+  <h2>Members:</h2>
+
+  <table class="table table-condensed">
     <tr>
-   	  <td><%= member.membership_number %></td>
-      <td><%= member.forename %></td>
-      <td><%= member.surname %></td>
+      <th>Number</th>
+      <th>Forename</th>
+      <th>Surname</th>
     </tr>
-  <% end %>
-</table>
 
+    <% @area_group.members.each do |member| %>
+      <tr>
+     	  <td><%= member.membership_number %></td>
+        <td><%= member.forename %></td>
+        <td><%= member.surname %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<% end %>

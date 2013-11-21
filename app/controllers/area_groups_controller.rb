@@ -35,8 +35,7 @@ class AreaGroupsController < ApplicationController
 
 	def update
 		@area_group = AreaGroup.find(params[:id])
-		@area_group.update(area_group_params)
-		@area_group.coordinator = Member.find(coordinator_params[:coordinator]) unless coordinator_params[:coordinator].nil?
+		@area_group.update_attributes(area_group_params)
 		@people = @area_group.members.sort_by!{ |m| m.forename.downcase }
 
 		if @area_group.errors.none?
@@ -54,18 +53,16 @@ class AreaGroupsController < ApplicationController
 
 	private
 		def area_group_params
-			params.require(:area_group).permit(:name, :description, :active)
-		end
-
-		def coordinator_params
-			params.require(:area_group).permit(:coordinator)
+			params.require(:area_group).permit(:name, :description, :active, :coordinator_id)
 		end
 
 		def signed_in_member
-      		redirect_to signin_url, notice: "Please sign in." unless signed_in?
+			flash[:danger] = 'Please sign in.' unless signed_in?
+      		redirect_to signin_url unless signed_in?
     	end
 
 		def area_group_admin
-    		redirect_to welcome_index_url, notice: "You are not allowed to perform that operation" unless area_group_admin?
+			flash[:danger] = 'You are not allowed to perform that operation' unless area_group_admin?
+    		redirect_to area_groups_path unless area_group_admin?
     	end
 end

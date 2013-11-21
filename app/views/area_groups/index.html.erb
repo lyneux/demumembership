@@ -1,6 +1,8 @@
 <h1 class="col-xs-10">Area Groups</h1>
 
-<%= link_to "Add New Area Group", new_area_group_path, class: "btn btn-primary pull-right, col-xs-2", style: "margin-top: 20px;"  %>
+<% if area_group_admin? %>
+  <%= link_to "Add New Area Group", new_area_group_path, class: "btn btn-primary pull-right, col-xs-2", style: "margin-top: 20px;"  %>
+<% end %>
 
 <table class="table table-condensed">
   <tr>
@@ -21,8 +23,10 @@
       <td><%= area_group.active %></td>
       <td>
         <%= link_to 'Show', area_group_path(area_group), class: "btn btn-xs btn-primary" %>
-        <%= link_to 'Edit', edit_area_group_path(area_group), class: "btn btn-xs btn-default" %>
-        <%= link_to 'Destroy', area_group_path(area_group), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-default"  %>
+        <% if area_group_admin? %>
+          <%= link_to 'Edit', edit_area_group_path(area_group), class: "btn btn-xs btn-default" %>
+          <%= link_to 'Destroy', area_group_path(area_group), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-default"  %>
+        <% end %>
       </td>
     </tr>
   <% end %>

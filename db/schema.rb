@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131101173621) do
+ActiveRecord::Schema.define(version: 20131108082711) do
 
   create_table "area_groups", force: true do |t|
     t.string   "name"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20131101173621) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "coordinator_id"
   end
+
+  add_index "area_groups", ["coordinator_id"], name: "index_area_groups_on_coordinator_id", using: :btree
 
   create_table "cms_blocks", force: true do |t|
     t.integer  "page_id",                     null: false
@@ -208,10 +211,8 @@ ActiveRecord::Schema.define(version: 20131101173621) do
     t.date     "date_of_birth"
     t.date     "date_added"
     t.integer  "area_group_id"
-    t.integer  "area_group_coordinator_id"
   end
 
-  add_index "members", ["area_group_coordinator_id"], name: "index_members_on_area_group_coordinator_id", using: :btree
   add_index "members", ["area_group_id"], name: "index_members_on_area_group_id", using: :btree
   add_index "members", ["member_category_id"], name: "index_members_on_member_category_id", using: :btree
   add_index "members", ["membership_status_id"], name: "index_members_on_membership_status_id", using: :btree
