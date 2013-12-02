@@ -6,6 +6,8 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+LC_ALL="en_GB.utf8"
+
 set -e
 
 if [ ! -z "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
