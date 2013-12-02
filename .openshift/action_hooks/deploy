@@ -57,5 +57,5 @@ ln -sf "${STORED_ASSETS}" "${LIVE_ASSETS}"
 fi
 
 #----PRECOMPILE PRODUCTION ASSETS---#
-cd $OPENSHIFT_REPO_DIR
-RAILS_ENV=production bundle exec rake assets:precompile
+#cd $OPENSHIFT_REPO_DIR
+#RAILS_ENV=production bundle exec rake assets:precompile
