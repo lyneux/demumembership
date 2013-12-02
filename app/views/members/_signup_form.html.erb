@@ -1,0 +1,137 @@
+<%= form_for @member, :url => { :action => "join" }, :html => { :class => "form-horizontal", :role => "form" } do |f| %>
+  <% if @member.errors.any? %>
+  <div id="errorExplanation" class="alert alert-danger" style="padding-top: 0px;">
+    <h3><%= pluralize(@member.errors.count, "error") %> stopped us from processing your membership:</h3>
+    <ul>
+    <% @member.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Personal Details</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label :forename, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.text_field :forename, class: "form-control" %></div>
+          </div>
+          <div class="form-group">
+            <%= f.label :surname, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8"><%= f.text_field :surname, class: "form-control" %></div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0px">
+            <%= f.label :date_of_birth, class: "col-xs-4 control-label" %>
+            <div class="col-xs-8">
+              <%= f.date_select :date_of_birth, {:start_year => 1920, :include_blank => true, :use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control col-xs-4", :style => "max-width: 65px; margin-right: 5px"}  %>
+            </div>
+          </div>
+          <p style="margin-bottom: 0px; margin-top: 10px;"><small>Note that your date of birth is used to make sure that you have the right class of membership, (e.g. an adult reaching retirement or a minor reaching adulthood)</small></p>
+        </div>
+      </div>
+
+      
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title">Membership Details</h3>
+        </div>
+        <div class="panel-body">
+          
+            <div class="row">
+              <%= f.label "Membership category", class: "col-xs-4 control-label" %>
+              <div class="col-xs-8">
+                <%= f.collection_select :member_category_id, MemberCategory.all, :id, :formatted_description, {:selected => 0, :include_blank => false} %>
+              </div>
+            </div>
+
+            <div class="row">
+              <%= f.label "Payment options", class: "col-xs-4 control-label" %>
+              <div class="col-xs-8">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      Pay by Direct Debit via Gocardless</br>
+                      <small>(This is the society's preffered option as it incurrs the smallest processing fee for us.
+                      You will be taken to the gocardless website when you click next.)</small>
+                  </label>
+                </div>
+                <div class="radio" style="padding-bottom: 7px">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      Paypal</br>
+                      <small>(You will be taken to Paypal's website when you click next.)</small>
+                  </label>
+                </div>
+              </div>
+            </div>            
+
+        </div>
+      </div>
+    
+
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contact Details</h3>
+        </div>
+        <div class="panel-body">
+          <%= fields_for @contact_details do |c| %>
+            <div class="form-group">
+              <%= c.label :address_line_1, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_1, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :address_line_2, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_2, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :address_line_3, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_3, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :town, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :town, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :county, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :county, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :postcode, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :postcode, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :country, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.country_select :country, ["United Kingdom"], {}, {:class => "form-control"} %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :telephone, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :telephone, class: "form-control" %></div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0px">
+              <%= c.label :email, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :email, class: "form-control" %></div>
+            </div>
+          <% end %>
+          <p style="margin-bottom: 0px; margin-top: 10px;"><small>The address that you supply here will be the address that we use for correspondance as well as where we will send your copy of Update magazine</small></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p>
+    <%= f.submit "Next", class:  "btn btn-sm btn-primary pull-right" %>
+    <%= link_to "Cancel", "/", class: "btn btn-sm btn-default pull-left" %>
+  </p>
+<% end %>
+

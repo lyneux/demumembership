@@ -12,6 +12,7 @@ MemberCategory.create(description: "Junior UK", price_in_pence_per_year: '1800')
 MemberCategory.create(description: "Family UK", price_in_pence_per_year: '2300')
 MemberCategory.create(description: "Rest of World", price_in_pence_per_year: '2800')
 
+MembershipStatus.create(status: "new")
 MembershipStatus.create(status: "live")
 MembershipStatus.create(status: "expired")
 MembershipStatus.create(status: "quit")

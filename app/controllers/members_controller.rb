@@ -1,6 +1,6 @@
 	class MembersController < ApplicationController
 
-	before_action :signed_in_member
+	before_action :signed_in_member,          only: [:index, :show, :edit, :update, :new, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
 	before_action :list,                      only: [:index]
 	before_action :own_record_or_admin_view,  only: [:show]
 	before_action :own_record_or_admin_edit,  only: [:edit, :update]
@@ -143,6 +143,33 @@
   		render 'expire', :locals => { :members => members}
   	end
 
+  	def join
+  		puts "called join"
+
+		join_member_params[:membership_number] = Member.maximum("membership_number") + 1
+		@member = Member.new(join_member_params)
+		@member.member_category = MemberCategory.find(join_member_params[:member_category_id]) unless join_member_params[:member_category_id].nil?
+		@member.source_channel = SourceChannel.find_by_channel(SourceChannel::ONLINE)
+		@member.membership_status = MembershipStatus.find_by_status(MembershipStatus::NEW)
+		@member.contact_details = ContactDetails.new(contact_details_params)
+		@member.save
+		
+		if @member.errors.none?
+			redirect_to @member, :flash => {:success => "Membership created"}
+		else
+			@contact_details = @member.contact_details
+			render 'new_signup'
+		end
+  		
+  	end
+
+  	def signup
+  		@member = Member.new(:date_added => Date.today)
+		@contact_details = ContactDetails.new
+
+  		render 'new_signup'
+  	end
+
 	private
 		def member_params
 			if member_admin?
@@ -150,6 +177,10 @@
 			else
 				params.require(:member).permit(:forename, :surname, :date_of_birth)
 			end
+		end
+
+		def join_member_params
+			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :member_category_id)
 		end
 
 		def contact_details_params

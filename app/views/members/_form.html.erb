@@ -35,88 +35,88 @@
         </div>
       </div>
 
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <h3 class="panel-title">Admin Details</h3>
-        </div>
-        <div class="panel-body">   
-          <div class="form-group">
-            <%= f.label :membership_number, class: "col-xs-4 control-label" %>
-            <div class="col-xs-4"><%= f.text_field :membership_number, class: "form-control" %></div>
-            <div class="col-xs-4">
-              <%= f.label "(current maximum: " + @max_member_id.to_s + ")", class: "control-label" %>
+      <% if member_admin? %>
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Admin Details</h3>
+          </div>
+          <div class="panel-body">   
+            <div class="form-group">
+              <%= f.label :membership_number, class: "col-xs-4 control-label" %>
+              <div class="col-xs-4"><%= f.text_field :membership_number, class: "form-control" %></div>
+              <div class="col-xs-4">
+                <%= f.label "(current maximum: " + @max_member_id.to_s + ")", class: "control-label" %>
+              </div>
             </div>
+            <div class="form-group">
+              <%= f.label :date_added, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.date_select :date_added, {:start_year => 1994, :include_blank => true, :use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control col-xs-4", :style => "max-width: 65px; margin-right: 5px"}  %></div>
+            </div>
+            <div class="form-group">
+              <%= f.label :member_category, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.collection_select :member_category_id, MemberCategory.all, :id, :description, {}, :class => "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= f.label :area_group, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.collection_select :area_group_id, AreaGroup.all, :id, :description, {:include_blank => true}, :class => "form-control" %></div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0px">
+              <%= f.label :notes, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= f.text_area :notes, class: "form-control" %></div>
+            </div>      
           </div>
-          <div class="form-group">
-            <%= f.label :date_added, class: "col-xs-4 control-label" %>
-            <div class="col-xs-8"><%= f.date_select :date_added, {:start_year => 1994, :include_blank => true, :use_short_month => true, :order => [:day, :month, :year]}, {:class => "form-control col-xs-4", :style => "max-width: 65px; margin-right: 5px"}  %></div>
-          </div>
-          <div class="form-group">
-            <%= f.label :member_category, class: "col-xs-4 control-label" %>
-            <div class="col-xs-8"><%= f.collection_select :member_category_id, MemberCategory.all, :id, :description, {}, :class => "form-control" %></div>
-          </div>
-          <div class="form-group">
-            <%= f.label :area_group, class: "col-xs-4 control-label" %>
-            <div class="col-xs-8"><%= f.collection_select :area_group_id, AreaGroup.all, :id, :description, {:include_blank => true}, :class => "form-control" %></div>
-          </div>
-          <div class="form-group" style="margin-bottom: 0px">
-            <%= f.label :notes, class: "col-xs-4 control-label" %>
-            <div class="col-xs-8"><%= f.text_area :notes, class: "form-control" %></div>
-          </div>      
         </div>
-      </div>
+      <% end %>
 
     </div>
 
     <div class="col-xs-12 col-md-6">
 
-      <% if member_admin? %>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Contact Details</h3>
-          </div>
-          <div class="panel-body">
-            <%= fields_for @contact_details do |c| %>
-              <div class="form-group">
-                <%= c.label :address_line_1, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :address_line_1, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :address_line_2, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :address_line_2, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :address_line_3, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :address_line_3, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :town, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :town, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :county, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :county, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :postcode, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :postcode, class: "form-control" %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :country, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.country_select :country, ["United Kingdom"], {}, {:class => "form-control"} %></div>
-              </div>
-              <div class="form-group">
-                <%= c.label :telephone, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :telephone, class: "form-control" %></div>
-              </div>
-              <div class="form-group" style="margin-bottom: 0px">
-                <%= c.label :email, class: "col-xs-4 control-label" %>
-                <div class="col-xs-8"><%= c.text_field :email, class: "form-control" %></div>
-              </div>
-            <% end %>
-          </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contact Details</h3>
         </div>
-      <% end %>
+        <div class="panel-body">
+          <%= fields_for @contact_details do |c| %>
+            <div class="form-group">
+              <%= c.label :address_line_1, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_1, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :address_line_2, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_2, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :address_line_3, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :address_line_3, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :town, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :town, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :county, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :county, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :postcode, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :postcode, class: "form-control" %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :country, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.country_select :country, ["United Kingdom"], {}, {:class => "form-control"} %></div>
+            </div>
+            <div class="form-group">
+              <%= c.label :telephone, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :telephone, class: "form-control" %></div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0px">
+              <%= c.label :email, class: "col-xs-4 control-label" %>
+              <div class="col-xs-8"><%= c.text_field :email, class: "form-control" %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
     </div>
   </div>
