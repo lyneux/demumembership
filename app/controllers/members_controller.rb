@@ -144,17 +144,19 @@
   	end
 
   	def join
-  		puts "called join"
 
-		join_member_params[:membership_number] = Member.maximum("membership_number") + 1
+		params[:member][:membership_number] = Member.maximum("membership_number") + 1
+		params[:member][:date_added] = Date.today
 		@member = Member.new(join_member_params)
 		@member.member_category = MemberCategory.find(join_member_params[:member_category_id]) unless join_member_params[:member_category_id].nil?
 		@member.source_channel = SourceChannel.find_by_channel(SourceChannel::ONLINE)
 		@member.membership_status = MembershipStatus.find_by_status(MembershipStatus::NEW)
 		@member.contact_details = ContactDetails.new(contact_details_params)
+		@member.forum_details = ForumDetails.new(forum_details_params)
 		@member.save
 		
 		if @member.errors.none?
+			sign_in @member
 			redirect_to @member, :flash => {:success => "Membership created"}
 		else
 			@contact_details = @member.contact_details
@@ -165,6 +167,7 @@
 
   	def signup
   		@member = Member.new(:date_added => Date.today)
+  		@member.forum_details = ForumDetails.new
 		@contact_details = ContactDetails.new
 
   		render 'new_signup'
@@ -180,7 +183,7 @@
 		end
 
 		def join_member_params
-			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :member_category_id)
+			params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :member_category_id, :date_added)
 		end
 
 		def contact_details_params
