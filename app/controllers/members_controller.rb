@@ -191,7 +191,7 @@
 	private
 		def member_params
 			if member_admin?
-				params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id)
+				params.require(:member).permit(:membership_number, :forename, :surname, :date_of_birth, :notes, :signup_source, :member_category_id, :source_channel_id, :area_group_id, :membership_status_id)
 			else
 				params.require(:member).permit(:forename, :surname, :date_of_birth)
 			end
