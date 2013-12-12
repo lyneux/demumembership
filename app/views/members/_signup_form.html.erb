@@ -36,14 +36,16 @@
 
           <%= fields_for @member.forum_details do |fd| %>
             <div class="form-group">
-              <%= fd.label :forum_name, class: "col-xs-4 control-label" %>
+              <%= fd.label "Login name", class: "col-xs-4 control-label" %>
               <div class="col-xs-8"><%= fd.text_field :forum_name, class: "form-control" %></div>
             </div>
             <div class="form-group">
-              <%= fd.label :forum_password, class: "col-xs-4 control-label" %>
+              <%= fd.label "Login password", class: "col-xs-4 control-label" %>
               <div class="col-xs-8"><%= fd.password_field :forum_password, class: "form-control" %></div>
             </div>
           <% end %>
+
+          <p style="margin-bottom: 10px; margin-top: 10px;"><small>Your login name and password is used to log you in to the DEMU online services: our membership database, forum and wiki.</small></p>
 
         </div>
       </div>
@@ -67,7 +69,7 @@
               <div class="col-xs-8">
                 <div class="radio">
                   <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    <input type="radio" name="payment_type" id="optionsRadios1" value="dd" checked>
                       Pay by Direct Debit via Gocardless</br>
                       <small>(This is the society's preffered option as it incurrs the smallest processing fee for us.
                       You will be taken to the gocardless website when you click next.)</small>
@@ -75,7 +77,7 @@
                 </div>
                 <div class="radio" style="padding-bottom: 7px">
                   <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    <input type="radio" name="paymentType" id="optionsRadios2" value="pp">
                       Paypal</br>
                       <small>(You will be taken to Paypal's website when you click next.)</small>
                   </label>

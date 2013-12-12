@@ -16,6 +16,8 @@ class Member < ActiveRecord::Base
   validates :membership_number, presence: true, numericality: true, uniqueness: true
   validates :contact_details, presence: true
 
+  validate :forum_details_presence_for_online_signup
+
   def find_latest_entitlement
     entitlement_periods.last unless entitlement_periods.nil?
   end
@@ -117,6 +119,17 @@ class Member < ActiveRecord::Base
       Date.new(Date.today.next_year.year, Date.today.next_month.month, 1)
     else
       latest_entitlement.end_date.next_year
+    end
+  end
+
+  def forum_details_presence_for_online_signup
+    puts "validating forum details presence. Membershipp status = " + membership_status.to_s
+    if membership_status.to_s == MembershipStatus::NEW
+
+      unless forum_details.forum_name.present? && forum_details.forum_password.present?
+        puts "found error"
+        errors.add("Login Details", "can't be empty")
+      end
     end
   end
   

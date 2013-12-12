@@ -124,6 +124,11 @@
 
 	end
 
+	def online_signups
+		new_status = MembershipStatus.find_by_status(MembershipStatus::NEW)
+		@members = Member.where("membership_status_id = ?", new_status)
+	end
+
 	def expire
 		entitlements_expiring = EntitlementPeriod.where("end_date < ?", Date.today)
 		members = []
@@ -143,6 +148,14 @@
   		render 'expire', :locals => { :members => members}
   	end
 
+  	def signup
+  		@member = Member.new(:date_added => Date.today)
+  		@member.forum_details = ForumDetails.new
+		@contact_details = ContactDetails.new
+
+  		render 'new_signup'
+  	end
+
   	def join
 
 		params[:member][:membership_number] = Member.maximum("membership_number") + 1
@@ -153,24 +166,26 @@
 		@member.membership_status = MembershipStatus.find_by_status(MembershipStatus::NEW)
 		@member.contact_details = ContactDetails.new(contact_details_params)
 		@member.forum_details = ForumDetails.new(forum_details_params)
+		@member.forum_details.forum_password = Digest::SHA1.hexdigest (@member.forum_details.forum_name.to_s + @member.forum_details.forum_password)
+		#TODO: Create forum login at this point
 		@member.save
 		
 		if @member.errors.none?
 			sign_in @member
-			redirect_to @member, :flash => {:success => "Membership created"}
+			#redirect_to @member, :flash => {:success => "Membership created"}
+			case params[:payment_type]
+			when 'dd'
+				# Process Direct Debit Payment
+				redirect_to new_member_go_cardless_payment_method_path(:member_id => @member.id)
+			when 'pp'
+				# Process Pay Pal Payment
+				redirect_to @member, :flash => {:success => "Membership created - paypal payment to follow"}
+			end
 		else
 			@contact_details = @member.contact_details
 			render 'new_signup'
 		end
   		
-  	end
-
-  	def signup
-  		@member = Member.new(:date_added => Date.today)
-  		@member.forum_details = ForumDetails.new
-		@contact_details = ContactDetails.new
-
-  		render 'new_signup'
   	end
 
 	private

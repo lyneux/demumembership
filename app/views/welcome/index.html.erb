@@ -1,38 +1,11 @@
 <div class="center hero-unit">
-	<h2>Membership Database</h2>
-
-	<h3>Main Functions - Non Member</h3>
-	Signup</br>
-
-	<h3>Main Functions - Member</h3>
-	<%= link_to "Log in", signin_path %></br>
-	<%= link_to "Log out", signout_path, method: "delete" %></br>
-	<%= link_to 'View My Membership', member_path(current_member) %></br>
-	Update My Membership</br>
-	Create/Delete My Subscription
-
-	<h3>Main Functions - Area Group Coordinator</h3>
-	<%= link_to "View Area Groups", controller: "area_groups" %></br>
-	Create/Update/Delete Area Group</br>
-	<%= link_to "View Members", controller: "members" %></br>
-	Update Member (Area Group Assignment only)</br>
-
-	<h3>Main Functions - Membership Secretary</h3>
-	<%= link_to "View Members", controller: "members" %></br>
-	<%= link_to "View Members (With Upcoming Renewal)", members_by_days_to_expiry_path('30') %></br>
-	<%= link_to "Create Member", new_member_url() %></br>
-	Update Members (go to the members listing to test it)</br>
-
-	<h3>Scheduled Jobs</h3>
-	<p>Note: these aren't yet scheduled to run so must be run manually for the moment.</p>
 	
-	<p><%= link_to "Expire Members", members_expire_path %></br>
-		Runs monthly to set any member states that have expired.</p>
-	<p><%= link_to "Create DD Payments", payments_create_dd_payments_path %></br>
-		Runs weekly to request payment from anyone due to renew by DD in the next week.</p>
-
-	<h3>Callbacks from GoCardless</h3>
-	<p><%= link_to "Handle Billing Notification", payments_test_handle_notification_path %></br>
-	</p>
+	<div class="jumbotron" style="margin-top: 20px;">
+	  <h1>Welcome to DEMU <%= @member.forename %></h1>
+	  <p>You are now registered!</p>
+	  <p>The membership secretary will contact you in due course and will send you your welcome pack containing your first copy of Update magazine. In the mean time, why not log in to our forum with your new login: <strong><%= @member.forum_details.forum_name %></strong> ?</p>
+	  <p><a class="btn btn-primary btn-lg" role="button" href="/forum">To the trains...</a>
+	  <a class="btn btn-default btn-lg" role="button" href="<%= member_path(current_member) %>">Manage my membership</a></p>
+	</div>
 
 </div>

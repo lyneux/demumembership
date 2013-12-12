@@ -1,0 +1,32 @@
+<h1>Online Sign-Ups</h1>
+
+<p>The following <%= @members.count %> members have signed up online. They should already have access to the website and forum.</p>
+<p>Please process their application by sending them their welcome pack and first issue of Update. Once complete, mark them as processed. This will then set their member state to LIVE.</p>
+<p>Exceptions: If they didn't complete the payment step, they will have no Paid Up To Date and no forum login. Please contact them and then process their application as an offline renewal.</p>
+
+<table class="table table-condensed">
+  <tr>
+    <th>Number</th>
+    <th>Forename</th>
+    <th>Surname</th>
+    <th>Paid Up To</th>
+    <th>Area Group</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @members.each do |member| %>
+    <tr>
+      <td><%= member.membership_number %></td>
+      <td><%= member.forename %></td>
+      <td><%= member.surname %></td>
+      <td><%= member.paid_up_to_date %></td>
+      <td><%= member.area_group %></td>
+      <td>
+        <%= link_to 'Show', member_path(member), class: "btn btn-xs btn-primary"   %>
+        <%= link_to 'Edit', edit_member_path(member), class: "btn btn-xs btn-default" %>
+        <%= link_to 'Destroy', member_path(member), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-default"   %></td>
+    </tr>
+  <% end %>
+</table>
+
+
