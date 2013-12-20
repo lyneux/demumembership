@@ -1,10 +1,10 @@
 	class MembersController < ApplicationController
 
-	before_action :signed_in_member,          only: [:index, :show, :edit, :update, :new, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
+	before_action :signed_in_member,          only: [:index, :show, :edit, :update, :new, :create, :destroy, :upcoming_renewals, :online_signups, :expire, :generate_passwords]
 	before_action :list,                      only: [:index]
 	before_action :own_record_or_admin_view,  only: [:show]
 	before_action :own_record_or_admin_edit,  only: [:edit, :update]
-	before_action :manage,   	              only: [:new, :create, :destroy, :upcoming_renewals, :expire, :generate_passwords]
+	before_action :manage,   	              only: [:new, :create, :destroy, :upcoming_renewals, :online_signups, :expire, :generate_passwords]
 
 	def new
 		@member = Member.new(:date_added => Date.today)
