@@ -29,3 +29,6 @@ doc/
 public/system/*
 db/cms_fixtures/*
 config/database.yml.old.yml
+
+# Ignore application configuration
+/config/application.yml

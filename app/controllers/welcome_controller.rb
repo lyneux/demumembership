@@ -8,10 +8,10 @@ class WelcomeController < ApplicationController
 		puts "PASSWORD = " + @member.forum_details.forum_password
 
 		client = Mysql2::Client.new(
-			:host => "188.65.117.70",
-			:database => "demu_forum",
-			:username => "demu_membership",
-			:password => "st4rbuck2014m3mb3r"
+			:host => ENV["FORUM_HOST"],
+			:database => ENV["FORUM_DATABASE"],
+			:username => ENV["FORUM_USERNAME"],
+			:password => ENV["FORUM_PASSWORD"]
   		)
 
         puts "NAME=" + @member.forum_details.forum_name
