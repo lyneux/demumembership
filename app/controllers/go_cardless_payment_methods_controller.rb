@@ -44,8 +44,10 @@ class GoCardlessPaymentMethodsController < ApplicationController
 		GoCardless.confirm_resource params
 
 			if @member.membership_status.to_s == MembershipStatus::NEW
+				# They are a new member, redirect to new member page
 				redirect_to welcome_index_path(@member), :flash => {:success => "Welcome to DEMU! Your membership details are shown below. You can login to the forum using your username (" + @member.forum_details.forum_name + ") and the password that you specified when you registered"}
 			else
+				# They are an existing member just registering with go cardless, re-direct to My Membership page
 				redirect_to member_path(@member), :flash => {:success => "Go Cardless Payment Method has now been registered"}
 			end
 		
