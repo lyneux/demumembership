@@ -1,20 +1,20 @@
 	source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.3'
 
 # Use mysql as the database for Active Record
 group :development do
-	gem 'pg', '0.15.1'
+	gem 'mysql2'
 end
 
 group :production do
-	gem 'pg', '0.15.1'
+	gem 'mysql2'
 	gem 'rails_12factor', '0.0.2'
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -57,9 +57,8 @@ end
 # Use country_select
 gem 'country_select', 			'1.2.0'
 gem 'gocardless', 			'1.8.0'
-gem 'bootstrap-sass', 			'3.0.2.1'
-gem 'comfortable_mexican_sofa', 	'1.10.3'
-gem 'mysql2', 				'0.3.13'
+gem 'bootstrap-sass', 			'3.1.0'
+gem 'comfortable_mexican_sofa', 	'1.12.2'
 gem 'alphabetical_paginate', :git => 'git://github.com/lyneux/alphabetical_paginate.git'
 gem 'paypal-express'
 gem "figaro"

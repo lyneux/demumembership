@@ -2,7 +2,7 @@
   <ul class="nav navbar-nav pull-right">
 
     <!-- CMS Menus -->
-    <% @cms_site = Cms::Site.find_by_id('1') %>
+    <% @cms_site = Comfy::Cms::Site.find_by_id('1') %>
     <% unless @cms_site.nil?  %>
       <% @cms_site.pages.root.children.published.each do |page| %>
         <% unless (page.label == 'Forum') || (page.label == 'Wiki') %>
@@ -92,7 +92,7 @@
           <% if member_admin? %>
             <li class="divider"></li>
             <li class="dropdown-header">Content Management</li>
-            <li><%= link_to "CMS", admin_cms_path %></li>
+            <li><%= link_to "CMS", main_app.comfy_admin_cms_path %></li>
           <% end %>
 
         </ul>

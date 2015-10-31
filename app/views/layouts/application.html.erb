@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DEMU</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= stylesheet_link_tag cms_render_css_path(@cms_site.id, @cms_layout.identifier)  unless @cms_site.nil? %>
+  <%= stylesheet_link_tag comfy_cms_render_css_path(@cms_site.id, @cms_layout.identifier)  unless @cms_site.nil? %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <!--[if lt IE 9]>
