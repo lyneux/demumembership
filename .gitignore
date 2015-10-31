@@ -27,6 +27,7 @@ doc/
 .idea
 .secret
 public/system/*
+public/cms-assets/*
 db/cms_fixtures/*
 config/database.yml.old.yml
 
