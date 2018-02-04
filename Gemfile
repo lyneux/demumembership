@@ -1,4 +1,4 @@
-	source 'https://rubygems.org'
+source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -62,3 +62,4 @@ gem 'comfortable_mexican_sofa', 	'1.12.2'
 gem 'alphabetical_paginate', :git => 'git://github.com/lyneux/alphabetical_paginate.git'
 gem 'paypal-express'
 gem "figaro"
+gem "ruby_kml"
