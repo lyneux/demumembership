@@ -1,15 +1,13 @@
 source 'https://rubygems.org'
+# Ruby 2.2.4
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.2.7.1'
 
 # Use mysql as the database for Active Record
-group :development do
-	gem 'mysql2'
-end
+gem 'mysql2', '~> 0.3.20'
 
 group :production do
-	gem 'mysql2'
 	gem 'rails_12factor', '0.0.2'
 end
 
@@ -63,3 +61,5 @@ gem 'alphabetical_paginate', :git => 'git://github.com/lyneux/alphabetical_pagin
 gem 'paypal-express'
 gem "figaro"
 gem "ruby_kml"
+gem 'responders', '~> 2.0'
+
